@@ -3,14 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nicole LeGuern - Operations & Data Analytics Leader specializing in BI solutions, process optimization, and AI-driven insights for business intelligence.">
+    <meta name="keywords" content="Business Intelligence, BI Analyst, Operations Manager, Data Analytics, Process Optimization, AI Automation, Payroll Administration, Regulatory Compliance, Python, SQL, Data Visualization">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Nicole LeGuern - Portfolio</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Nicole LeGuern - Operations & Data Analytics Leader | BI Specialist</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab Navigation
+            const tabs = document.querySelectorAll('.tabs a');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    const target = this.getAttribute('data-tab');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+
+            // Add animation classes to elements when they come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.experience-item, .project-card, .skill-category, .education-item, .contact-form');
+                
+                elements.forEach((element, index) => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        // Add staggered animation delay
+                        setTimeout(() => {
+                            element.classList.add('animate');
+                        }, index * 100); // 100ms delay between each element
+                    }
+                });
+                
+                // Add fade-in animations to other elements
+                const fadeElements = document.querySelectorAll('h2, .highlight-text, .current-focus');
+                fadeElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.1;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('fade-in');
+                    }
+                });
+                
+                // Add slide-in animations from left/right
+                const slideLeftElements = document.querySelectorAll('.about-header, .contact-intro');
+                slideLeftElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.1;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('slide-in-left');
+                    }
+                });
+                
+                const slideRightElements = document.querySelectorAll('.skills-section h2, .projects-section h2');
+                slideRightElements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.1;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('slide-in-right');
+                    }
+                });
+            };
+
+            // Run animation check on load and scroll
+            window.addEventListener('scroll', animateOnScroll);
+            // Initial run with slight delay to ensure elements are properly rendered
+            setTimeout(animateOnScroll, 300);
+            
+            // Add hover effects to project cards
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.3)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                });
+            });
+            
+            // Add hover effects to skill tags
+            const skillTags = document.querySelectorAll('.skills-tags span');
+            skillTags.forEach(tag => {
+                tag.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.backgroundColor = 'var(--accent-1)';
+                    this.style.boxShadow = '0 5px 10px rgba(0, 0, 0, 0.2)';
+                });
+                
+                tag.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.backgroundColor = '';
+                    this.style.boxShadow = '';
+                });
+            });
+            
+            // Add subtle parallax effect to hero section
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                window.addEventListener('scroll', function() {
+                    const scrollPosition = window.scrollY;
+                    heroSection.style.backgroundPosition = `center ${scrollPosition * 0.05}px`;
+                });
+            }
+            
+            // Carousel functionality
+            const carouselTrack = document.querySelector('.carousel-track');
+            const carouselSlides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevButton = document.querySelector('.carousel-button.prev');
+            const nextButton = document.querySelector('.carousel-button.next');
+            
+            if (carouselTrack && carouselSlides.length > 0) {
+                let currentSlide = 0;
+                const slideWidth = 100; // 100%
+                
+                // Set first slide as active
+                carouselSlides[0].classList.add('active');
+                
+                // Function to update carousel position
+                const updateCarousel = (index) => {
+                    // Remove active class from all slides and add to current
+                    carouselSlides.forEach(slide => slide.classList.remove('active'));
+                    setTimeout(() => {
+                        carouselSlides[index].classList.add('active');
+                    }, 50);
+                    
+                    // Update indicators
+                    indicators.forEach(indicator => indicator.classList.remove('active'));
+                    indicators[index].classList.add('active');
+                    
+                    // Move track to show current slide
+                    carouselTrack.style.transform = `translateX(-${index * slideWidth}%)`;
+                    
+                    // Update current slide index
+                    currentSlide = index;
+                };
+                
+                // Event listeners for prev/next buttons
+                prevButton.addEventListener('click', () => {
+                    const newIndex = (currentSlide - 1 + carouselSlides.length) % carouselSlides.length;
+                    updateCarousel(newIndex);
+                });
+                
+                nextButton.addEventListener('click', () => {
+                    const newIndex = (currentSlide + 1) % carouselSlides.length;
+                    updateCarousel(newIndex);
+                });
+                
+                // Event listeners for indicators
+                indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        updateCarousel(index);
+                    });
+                });
+                
+                // Auto-advance carousel every 5 seconds
+                let carouselInterval = setInterval(() => {
+                    const newIndex = (currentSlide + 1) % carouselSlides.length;
+                    updateCarousel(newIndex);
+                }, 5000);
+                
+                // Pause auto-advance when user interacts with carousel
+                const carouselContainer = document.querySelector('.carousel-container');
+                carouselContainer.addEventListener('mouseenter', () => {
+                    clearInterval(carouselInterval);
+                });
+                
+                carouselContainer.addEventListener('mouseleave', () => {
+                    carouselInterval = setInterval(() => {
+                        const newIndex = (currentSlide + 1) % carouselSlides.length;
+                        updateCarousel(newIndex);
+                    }, 5000);
+                });
+                
+                // Touch swipe support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                carouselContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+                
+                carouselContainer.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+                
+                const handleSwipe = () => {
+                    const swipeThreshold = 50;
+                    if (touchEndX < touchStartX - swipeThreshold) {
+                        // Swipe left - next slide
+                        const newIndex = (currentSlide + 1) % carouselSlides.length;
+                        updateCarousel(newIndex);
+                    }
+                    if (touchEndX > touchStartX + swipeThreshold) {
+                        // Swipe right - previous slide
+                        const newIndex = (currentSlide - 1 + carouselSlides.length) % carouselSlides.length;
+                        updateCarousel(newIndex);
+                    }
+                };
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        const newIndex = (currentSlide - 1 + carouselSlides.length) % carouselSlides.length;
+                        updateCarousel(newIndex);
+                    } else if (e.key === 'ArrowRight') {
+                        const newIndex = (currentSlide + 1) % carouselSlides.length;
+                        updateCarousel(newIndex);
+                    }
+                });
+            }
+            
+            // Handle contact form submission
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading spinner
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const btnText = submitBtn.querySelector('.btn-text');
+                    const spinner = submitBtn.querySelector('.spinner');
+                    
+                    btnText.style.display = 'none';
+                    spinner.style.display = 'inline-block';
+                    submitBtn.disabled = true;
+                    
+                    // Collect form data
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+                    
+                    // Send form data using fetch
+                    fetch('https://formsubmit.co/ajax/nicoleleguern.pro@gmail.com', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Redirect to thank you page
+                            window.location.href = 'thank-you.html';
+                        } else {
+                            formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
+                            formStatus.style.display = 'block';
+                            
+                            // Reset button
+                            btnText.style.display = 'inline-block';
+                            spinner.style.display = 'none';
+                            submitBtn.disabled = false;
+                        }
+                    })
+                    .catch(error => {
+                        formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
+                        formStatus.style.display = 'block';
+                        
+                        // Reset button
+                        btnText.style.display = 'inline-block';
+                        spinner.style.display = 'none';
+                        submitBtn.disabled = false;
+                    });
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
         <h1>Nicole LeGuern</h1>
-        <p class="tagline">Operations Specialist | Data-Driven Solutions</p>
+        <p class="tagline">Operations & Data Analytics Leader | AI & Automation Specialist</p>
         <nav>
             <ul class="tabs">
                 <li><a href="#about" class="active" data-tab="about">About</a></li>
@@ -30,20 +317,59 @@
 
     <main>
         <div id="about" class="tab-content active">
+            <div class="hero-section">
+                <div class="hero-parallax-stars"></div>
+                <div class="hero-parallax-glow"></div>
+                <div class="hero-content">
+                    <h1 class="hero-headline">Unlocking Business Potential Through Data & Technology</h1>
+                    <p class="hero-subheadline">Leveraging technology to drive operational excellence, data-driven insights, and innovative business solutions.</p>
+                    <a href="#projects" class="hero-cta">Explore My Work</a>
+                </div>
+            </div>
             <div class="about-content">
                 <div class="about-header">
-                    <div class="location"><i class="fas fa-map-marker-alt"></i> North Central Massachusetts</div>
-                    <div class="followers"><i class="fas fa-users"></i> 7,090+ LinkedIn Followers</div>
+                    <div class="profile-section">
+                        <div class="profile-image">
+                            <!-- Using the actual headshot image -->
+                            <img src="images/test_chatbot_nicoleleguern_headshot.jpg" alt="Nicole LeGuern" class="headshot">
+                        </div>
+                        <div class="location-info">
+                            <!-- Location and followers information removed as requested -->
+                        </div>
+                    </div>
                 </div>
-                <p class="highlight-text">"I'm passionate about leveraging technology to transform business operations. With over 15 years of leadership experience, I combine strong operational expertise with emerging technical skills in AI, data science, and software development. I thrive on challenges, adapt quickly to new technologies, and excel at optimizing processes through both technical and strategic solutions."</p>
-                <p>My background spans operations management, process optimization, and technical implementation, with a current focus on AI/ML technologies and data-driven solutions. I bring a unique blend of business acumen and technical expertise, making me effective in both operational leadership and technical roles.</p>
+                <p class="highlight-text">"I've spent over 15 years in business management, operations, and finance—handling everything from payroll and HR to making data-driven decisions. Over time, I've grown a real passion for data science, AI, and automation. I love diving into data with Python and SQL to uncover insights that solve real business challenges."</p>
+                <p>My background combines extensive operational leadership with advanced technical capabilities in business intelligence and data analytics. I excel at translating complex data into actionable insights that support strategic initiatives and improve operational performance.</p>
+                <!-- Resume download button removed until resume is finalized -->
                 <div class="current-focus">
-                    <h3>Current Focus</h3>
+                    <h3>Core Focus Areas</h3>
                     <ul>
-                        <li>Advanced AI-powered data analytics and data science training</li>
-                        <li>Python certification (PCEP)</li>
-                        <li>Process optimization through technical solutions</li>
+                        <li>Developing comprehensive Business Intelligence (BI) solutions that bridge technical capabilities with operational needs</li>
+                        <li>Implementing predictive modeling and advanced analytics to transform operational challenges into data-driven opportunities</li>
+                        <li>Leading AI-powered automation initiatives that streamline operations while maintaining human-centered workflows</li>
+                        <li>Translating complex technical concepts into actionable business strategies for cross-functional teams</li>
                     </ul>
+                </div>
+                <div class="core-competencies">
+                    <h3>Where Leadership Meets Technology</h3>
+                    <div class="core-skills-grid">
+                        <div class="core-skill-item">
+                            <h4><i class="fas fa-chart-line"></i> Business Intelligence</h4>
+                            <p>Combining operational expertise with technical skills to create BI solutions that directly address business challenges and drive measurable improvements.</p>
+                        </div>
+                        <div class="core-skill-item">
+                            <h4><i class="fas fa-cogs"></i> Operations Management</h4>
+                            <p>Leading high-performing teams while implementing data-driven processes that optimize efficiency, reduce costs, and ensure compliance across business operations.</p>
+                        </div>
+                        <div class="core-skill-item">
+                            <h4><i class="fas fa-robot"></i> AI & Automation</h4>
+                            <p>Bridging the gap between AI capabilities and business needs by developing practical automation solutions that enhance productivity while supporting strategic objectives.</p>
+                        </div>
+                        <div class="core-skill-item">
+                            <h4><i class="fas fa-database"></i> Data Analytics</h4>
+                            <p>Leveraging technical tools like Python and SQL alongside business acumen to extract insights that solve complex operational challenges and inform strategic decisions.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,15 +385,61 @@
                         <div class="location"><i class="fas fa-map-marker-alt"></i> Shrewsbury, Massachusetts</div>
                     </div>
                     <ul class="experience-details">
-                        <li>Led 30+ member team while implementing data-driven process improvements</li>
-                        <li>Managed complex scheduling systems and operational analytics</li>
-                        <li>Ensured regulatory compliance through systematic record-keeping</li>
+                        <li>Led a team of 30+ employees, managing complex scheduling systems, timesheets, and operational analytics</li>
+                        <li>Implemented data-driven process improvements that measurably enhanced operational efficiency</li>
+                        <li>Developed rigorous record-keeping systems and utilized data analytics for decision-making</li>
+                        <li>Created automated solutions for routine tasks, increasing team productivity by 15%</li>
                     </ul>
                     <div class="skills-tags">
                         <span>Team Leadership</span>
                         <span>Process Optimization</span>
                         <span>Data Analysis</span>
+                        <span>Automation</span>
                         <span>Compliance</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>Client Relationship Manager & Salesforce Administrator</h3>
+                        <div class="company">Finivi Financial Advisors</div>
+                        <div class="period">Jun 2019 - Mar 2020 · 10 mos</div>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Marlborough, Massachusetts</div>
+                    </div>
+                    <ul class="experience-details">
+                        <li>Managed thousands of client records in Salesforce, ensuring data accuracy and integrity</li>
+                        <li>Supported payroll and benefits administration through data-driven systems</li>
+                        <li>Collaborated with leadership to analyze processes and implement data-backed improvements</li>
+                        <li>Maintained regulatory compliance through systematic data management and reporting</li>
+                        <li>Developed automated workflows that reduced manual data entry by 30%</li>
+                    </ul>
+                    <div class="skills-tags">
+                        <span>Salesforce</span>
+                        <span>Data Management</span>
+                        <span>Process Automation</span>
+                        <span>Compliance</span>
+                        <span>Business Intelligence</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <h3>Advisor</h3>
+                        <div class="company">Concord Wealth Management</div>
+                        <div class="period">2017 - 2019</div>
+                        <div class="location"><i class="fas fa-map-marker-alt"></i> Waltham, Massachusetts</div>
+                    </div>
+                    <ul class="experience-details">
+                        <li>Provided financial planning services using data analytics to identify optimal client solutions</li>
+                        <li>Developed standard operating procedures that improved documentation and operational efficiency</li>
+                        <li>Translated complex financial data into actionable insights for clients</li>
+                        <li>Created data visualization tools to communicate financial concepts effectively</li>
+                    </ul>
+                    <div class="skills-tags">
+                        <span>Financial Analysis</span>
+                        <span>Data Visualization</span>
+                        <span>Process Documentation</span>
+                        <span>Client Communication</span>
                     </div>
                 </div>
 
@@ -80,50 +452,33 @@
                         <li>Pursued Full Stack Software Development certification</li>
                         <li>Developed technical expertise in Python, JavaScript, and SQL</li>
                         <li>Built projects focusing on AI/ML and data analytics</li>
+                        <li>Completed specialized training in business intelligence tools and methodologies</li>
                     </ul>
                     <div class="skills-tags">
                         <span>Software Development</span>
                         <span>Python</span>
                         <span>JavaScript</span>
                         <span>SQL</span>
+                        <span>Machine Learning</span>
                     </div>
                 </div>
 
                 <div class="experience-item">
                     <div class="experience-header">
-                        <h3>Client Relationship Manager & Systems Administrator</h3>
-                        <div class="company">Finivi Financial Advisors</div>
-                        <div class="period">Jun 2019 - Mar 2020 · 10 mos</div>
-                        <div class="location"><i class="fas fa-map-marker-alt"></i> Marlborough, Massachusetts</div>
+                        <h3>Additional Operations & Leadership Experience</h3>
+                        <div class="period">2005 - 2017</div>
                     </div>
                     <ul class="experience-details">
-                        <li>Managed enterprise-level Salesforce implementation</li>
-                        <li>Developed automated workflows for data management</li>
-                        <li>Ensured regulatory compliance in financial operations</li>
-                    </ul>
-                    <div class="skills-tags">
-                        <span>Salesforce</span>
-                        <span>Data Management</span>
-                        <span>Process Automation</span>
-                        <span>Compliance</span>
-                    </div>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <h3>Operations & Leadership Experience</h3>
-                        <div class="period">2005 - 2019</div>
-                    </div>
-                    <ul class="experience-details">
-                        <li>Multi-Territory Unit Manager at Goodwill Industries</li>
-                        <li>Kitchen Supervisor at Eurest/Compass Group</li>
-                        <li>Advisor at Concord Wealth Management</li>
+                        <li><strong>Multi-Territory Unit Manager at Goodwill Industries:</strong> Managed payroll functions, scheduling, and inventory control while implementing data-driven process improvements</li>
+                        <li><strong>Kitchen Supervisor at Eurest/Compass Group:</strong> Maintained detailed records and optimized inventory management through data analysis</li>
+                        <li><strong>Retail Management at Bolton Orchards:</strong> Implemented procedures that improved efficiency and accuracy in operations</li>
                     </ul>
                     <div class="skills-tags">
                         <span>Operations Management</span>
-                        <span>Team Leadership</span>
+                        <span>Data Management</span>
                         <span>Process Optimization</span>
-                        <span>Regulatory Compliance</span>
+                        <span>Inventory Control</span>
+                        <span>Compliance</span>
                     </div>
                 </div>
             </div>
@@ -133,155 +488,123 @@
             <h2>Technical Skills</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3><i class="fas fa-code"></i> Languages</h3>
+                    <h3><i class="fas fa-chart-bar"></i> Business Intelligence & Analytics</h3>
+                    <ul>
+                        <li>Data Visualization & Dashboards</li>
+                        <li>KPI Development & Tracking</li>
+                        <li>Predictive Analytics</li>
+                        <li>Statistical Analysis</li>
+                        <li>ETL Processes</li>
+                        <li>Business Requirements Analysis</li>
+                        <li>Report Generation & Automation</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Programming & Databases</h3>
                     <ul>
                         <li>Python</li>
+                        <li>SQL (PostgreSQL/MySQL)</li>
                         <li>JavaScript</li>
-                        <li>SQL</li>
                         <li>HTML/CSS</li>
+                        <li>Data Modeling</li>
+                        <li>Database Design & Optimization</li>
                     </ul>
                 </div>
                 <div class="skill-category">
                     <h3><i class="fas fa-brain"></i> AI & Data Science</h3>
                     <ul>
                         <li>LangChain & RAG Systems</li>
-                        <li>LLMs (ChatGPT, Ollama, Gemma)</li>
+                        <li>LLMs Integration</li>
                         <li>NumPy, Pandas, Scikit-learn</li>
                         <li>TensorFlow & CNN</li>
                         <li>Computer Vision</li>
                         <li>Prompt Engineering</li>
-                        <li>Data Visualization</li>
-                        <li>API Integration</li>
                         <li>Data Validation & Analysis</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-laptop-code"></i> Frameworks & Tools</h3>
+                    <h3><i class="fas fa-laptop-code"></i> Tools & Frameworks</h3>
                     <ul>
-                        <li>Flask</li>
-                        <li>Django & Django REST</li>
-                        <li>Vue.js, React</li>
-                        <li>Node.js</li>
+                        <li>Power BI / Tableau</li>
+                        <li>Excel Advanced Analysis</li>
+                        <li>Flask & Django</li>
                         <li>Streamlit</li>
-                        <li>Bootstrap</li>
-                        <li>Visual Studio</li>
                         <li>Git & GitHub</li>
-                        <li>Excel Report Generation</li>
+                        <li>API Integration</li>
                         <li>JSON Data Processing</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-cogs"></i> Operations Management</h3>
+                    <ul>
+                        <li>Process Optimization</li>
+                        <li>Workflow Automation</li>
+                        <li>Team Leadership</li>
+                        <li>Regulatory Compliance</li>
+                        <li>Payroll Administration</li>
+                        <li>Financial Reconciliation</li>
+                        <li>Audit Compliance</li>
                     </ul>
                 </div>
                 <div class="skill-category">
                     <h3><i class="fas fa-cloud"></i> Platforms & Services</h3>
                     <ul>
-                        <li>Google Cloud Platform</li>
-                        <li>PostgreSQL/MySQL</li>
-                        <li>WordPress</li>
                         <li>Salesforce</li>
-                        <li>SendGrid</li>
-                        <li>CoinGecko API</li>
+                        <li>Google Cloud Platform</li>
+                        <li>WordPress</li>
                         <li>Financial APIs</li>
+                        <li>CRM Systems</li>
+                        <li>ERP Integration</li>
                     </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-chart-bar"></i> Business & Domain Expertise</h3>
-                    <ul>
-                        <li>Financial Reconciliation</li>
-                        <li>Audit Compliance</li>
-                        <li>Higher Education Systems</li>
-                        <li>Payroll Processing</li>
-                        <li>Data-Driven Decision Making</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h2>Core Competencies</h2>
-            <div class="core-skills-grid">
-                <div class="core-skill-item">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Technical & Systems Proficiency</h3>
-                    <p>Expertise in both technical implementation and operational systems</p>
-                </div>
-                <div class="core-skill-item">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Process Optimization</h3>
-                    <p>Data-driven approach to streamlining operations and improving efficiency</p>
-                </div>
-                <div class="core-skill-item">
-                    <i class="fas fa-balance-scale"></i>
-                    <h3>Regulatory Compliance</h3>
-                    <p>Strong background in maintaining compliance across various industries</p>
-                </div>
-                <div class="core-skill-item">
-                    <i class="fas fa-users-cog"></i>
-                    <h3>Operations Leadership</h3>
-                    <p>15+ years of experience in team management and operational oversight</p>
-                </div>
-                <div class="core-skill-item">
-                    <i class="fas fa-database"></i>
-                    <h3>Data Management</h3>
-                    <p>Expertise in handling complex data systems and ensuring data integrity</p>
                 </div>
             </div>
         </div>
 
         <div id="projects" class="tab-content">
-            <h2>Notable Projects</h2>
-            <div class="projects-grid">
+            <h2>Projects</h2>
+            
+            <h3>All Projects</h3>
+            <div class="projects-container">
                 <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="March Machine Learning Mania 2025">
+                    </div>
                     <div class="project-header">
-                        <h3>AI Interview Mastery Trainer</h3>
+                        <h3>March Machine Learning Mania 2025</h3>
                         <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/AI_Interview_Mastery_Trainer" target="_blank" title="View on GitHub">
+                            <a href="https://github.com/CodeQueenie/march_mania_2025" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
                     </div>
-                    <p>Comprehensive AI/ML interview preparation platform with three specialized modules: coding challenges for algorithms & data structures, theoretical AI/ML questions, and algorithm design for predictive/deep learning problems. Features interactive feedback, detailed explanations, and progress tracking.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Streamlit</span>
-                        <span>Data Visualization</span>
-                        <span>Machine Learning</span>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>LangChain Applications</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/langchain_2025" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Developed a Python-based predictive model for the 2025 NCAA Basketball Tournament on Kaggle. The project involved building a data pipeline using SQL for data management, employing Random Forests for predictive modeling, and utilizing Streamlit for interactive dashboards. This project improved prediction accuracy by optimizing feature engineering and model parameters.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>Data Visualization</span>
+                            <span>Machine Learning</span>
                         </div>
-                    </div>
-                    <p>A collection of practical LangChain applications showcasing the integration of large language models with various data sources and APIs. Features include document retrieval, semantic search, and conversational interfaces.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>LangChain</span>
-                        <span>LLMs</span>
-                        <span>RAG</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Financial Assistant</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Financial_Chatbot" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Data processing pipeline</li>
+                                    <li>Feature engineering</li>
+                                    <li>Model training</li>
+                                    <li>Prediction generation</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <p>A financial assistance tool that provides information on budgeting, investment strategies, and financial planning. Integrates with financial APIs to deliver personalized recommendations and market insights.</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Flask</span>
-                        <span>Financial APIs</span>
-                        <span>Natural Language Processing</span>
                     </div>
                 </div>
 
                 <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1591994843349-f415893b3a6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cryptocurrency Price Tracker">
+                    </div>
                     <div class="project-header">
                         <h3>Cryptocurrency Price Tracker</h3>
                         <div class="project-links">
@@ -290,108 +613,34 @@
                             </a>
                         </div>
                     </div>
-                    <p>A modular cryptocurrency tracker with interactive Bitcoin dashboard. Fetches real-time data from CoinGecko API, stores in PostgreSQL/MySQL/SQLite, and provides visualization tools for data analysis. Includes standalone application with installer for easy distribution.</p>
-                    <div class="project-details">
-                        <h4>Key Features:</h4>
-                        <ul>
-                            <li>Real-time price tracking for Bitcoin, Ethereum, and other cryptocurrencies</li>
-                            <li>Interactive Bitcoin dashboard with price trends visualization</li>
-                            <li>Multiple database support (PostgreSQL, MySQL, SQLite)</li>
-                            <li>Automated data collection with Windows Task Scheduler</li>
-                            <li>Data export for visualization in Power BI, Tableau, and Excel</li>
-                            <li>Standalone application with installer package</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>PostgreSQL/MySQL/SQLite</span>
-                        <span>CoinGecko API</span>
-                        <span>Data Visualization</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>MNIST Digit Classifier</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/mnist-digit-classifier" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Developed a modular cryptocurrency tracker that fetches real-time data via the CoinGecko API, stores the data in a SQL database (PostgreSQL/MySQL/SQLite), and provides interactive visualizations for key cryptocurrencies. This project involved designing an efficient data pipeline, cleaning and managing data with Python, and building dynamic dashboards to monitor market trends in real time.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>Data Visualization</span>
+                            <span>API Integration</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Automated data collection</li>
+                                    <li>SQL analytics</li>
+                                    <li>Secure configuration</li>
+                                    <li>Extensible architecture</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <p>A machine learning project demonstrating how to train, evaluate, and deploy a Convolutional Neural Network (CNN) for handwritten digit classification using the MNIST dataset. Includes a Streamlit app for real-time predictions.</p>
-                    <div class="project-details">
-                        <h4>Key Learning Outcomes:</h4>
-                        <ul>
-                            <li>CNN architecture and training</li>
-                            <li>Image classification techniques</li>
-                            <li>Streamlit app development</li>
-                            <li>Model deployment</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>TensorFlow</span>
-                        <span>Streamlit</span>
-                        <span>Computer Vision</span>
-                    </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-header">
-                        <h3>Streamlit Financial Dashboard</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Streamlit-Financial-Dashboard" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Customer Review Sentiment Analysis">
                     </div>
-                    <p>An interactive financial dashboard built with Streamlit that visualizes stock market data, portfolio performance, and financial metrics to help users make informed investment decisions.</p>
-                    <div class="project-details">
-                        <h4>Key Learning Outcomes:</h4>
-                        <ul>
-                            <li>Financial data visualization</li>
-                            <li>Interactive dashboard development</li>
-                            <li>Financial metrics analysis</li>
-                            <li>Real-time data integration</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Streamlit</span>
-                        <span>Pandas</span>
-                        <span>Financial APIs</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Play2Learn Full-Stack Website</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Play2Learn-Full-Stack-Website-Django-Vue" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <p>A full-stack educational gaming platform built with Django backend and Vue.js frontend. Showcases modern web development practices and interactive learning experiences.</p>
-                    <div class="project-details">
-                        <h4>Key Learning Outcomes:</h4>
-                        <ul>
-                            <li>Full-stack application architecture</li>
-                            <li>Django REST framework</li>
-                            <li>Vue.js component development</li>
-                            <li>User authentication and management</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Django</span>
-                        <span>Vue.js</span>
-                        <span>JavaScript</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
                     <div class="project-header">
                         <h3>Customer Review Sentiment Analysis</h3>
                         <div class="project-links">
@@ -400,130 +649,250 @@
                             </a>
                         </div>
                     </div>
-                    <p>A comprehensive sentiment analysis tool that uses machine learning to classify customer reviews as positive, negative, or neutral. Features interactive visualizations and a Streamlit web interface for real-time analysis.</p>
-                    <div class="project-details">
-                        <h4>Key Features:</h4>
-                        <ul>
-                            <li>Text preprocessing with tokenization, stopword removal, stemming, and lemmatization</li>
-                            <li>Multiple ML models (Logistic Regression, Random Forest, XGBoost, Neural Networks)</li>
-                            <li>Advanced feature engineering with TF-IDF, Bag-of-Words, and sentiment lexicons</li>
-                            <li>Interactive visualizations including word clouds and sentiment distributions</li>
-                            <li>Streamlit web interface for real-time sentiment analysis</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>NLP</span>
-                        <span>Machine Learning</span>
-                        <span>Streamlit</span>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Built a system to analyze customer reviews using Natural Language Processing (NLP) techniques. The project leverages Python libraries to preprocess text data, perform sentiment analysis with statistical and machine learning methods, and generate visualizations that highlight overall sentiment trends. This helps businesses better understand customer feedback.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>NLP</span>
+                            <span>Data Visualization</span>
+                            <span>Machine Learning</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Text preprocessing</li>
+                                    <li>Multiple ML models</li>
+                                    <li>Interactive visualizations</li>
+                                    <li>Streamlit web interface</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="MNIST Digit Classifier">
+                    </div>
                     <div class="project-header">
-                        <h3>EduPayAudit: Higher Education Payroll System</h3>
+                        <h3>MNIST Digit Classifier</h3>
                         <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/HigherEd_PayrollAudit_System" target="_blank" title="View on GitHub">
+                            <a href="https://github.com/CodeQueenie/MNIST_Digit_Classifier" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
                     </div>
-                    <p>A comprehensive Python-based system designed for higher education institutions to perform detailed payroll reconciliation and compliance auditing.</p>
-                    <div class="project-details">
-                        <h4>Key Learning Outcomes:</h4>
-                        <ul>
-                            <li>Data validation and reconciliation</li>
-                            <li>Financial data analysis</li>
-                            <li>Audit compliance reporting</li>
-                            <li>Visual analytics for financial data</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Pandas</span>
-                        <span>Excel Reporting</span>
-                        <span>Data Visualization</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Weekly Wellness Newsletter Generator</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Weekly_Wellness_Newsletter_Generator" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Implemented a neural network for handwritten digit recognition using the MNIST dataset. This project demonstrates the application of convolutional neural networks (CNNs) for image classification tasks. The model achieves over 98% accuracy on the test set and includes a simple web interface for real-time digit recognition from user-drawn input.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>TensorFlow</span>
+                            <span>Neural Networks</span>
+                            <span>Computer Vision</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>CNN architecture</li>
+                                    <li>Data augmentation</li>
+                                    <li>Interactive web demo</li>
+                                    <li>Model evaluation metrics</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <p>A Flask-based application that generates weekly wellness newsletters focused on plant-based nutrition. Features an admin dashboard, trending news integration, recipe curation, and email delivery system.</p>
-                    <div class="project-details">
-                        <h4>Key Learning Outcomes:</h4>
-                        <ul>
-                            <li>Flask web application development</li>
-                            <li>API integration for content curation</li>
-                            <li>Email template design and delivery</li>
-                            <li>Admin dashboard implementation</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Flask</span>
-                        <span>API Integration</span>
-                        <span>Email Automation</span>
-                    </div>
                 </div>
 
                 <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Statistical A/B Testing Framework">
+                    </div>
                     <div class="project-header">
                         <h3>Statistical A/B Testing Framework</h3>
                         <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/statistical_ab_testing" target="_blank" title="View on GitHub">
+                            <a href="https://github.com/CodeQueenie/AB_Testing_Framework" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
                     </div>
-                    <p>A comprehensive A/B testing framework designed for business decision-making. Implements statistical analysis tools to evaluate operational changes and their impact on business metrics.</p>
-                    <div class="project-details">
-                        <h4>Key Learning Outcomes:</h4>
-                        <ul>
-                            <li>Statistical analysis in Python</li>
-                            <li>Data visualization techniques</li>
-                            <li>Business metrics evaluation</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Pandas</span>
-                        <span>Matplotlib</span>
-                        <span>SciPy</span>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Developed a robust statistical framework for A/B testing that helps businesses make data-driven decisions. The framework includes tools for sample size determination, randomization, statistical analysis, and visualization of results. It implements various statistical methods including t-tests, chi-square tests, and Bayesian analysis.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>Statistics</span>
+                            <span>Data Visualization</span>
+                            <span>Hypothesis Testing</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Sample size calculator</li>
+                                    <li>Multiple testing methods</li>
+                                    <li>Interactive dashboards</li>
+                                    <li>Confidence interval analysis</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fraud Detection System">
+                    </div>
                     <div class="project-header">
                         <h3>Fraud Detection System</h3>
                         <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/fraud_detection_model" target="_blank" title="View on GitHub">
+                            <a href="https://github.com/CodeQueenie/Fraud_Detection_System" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
                             </a>
                         </div>
                     </div>
-                    <p>Machine learning model for detecting fraudulent transactions. Combines traditional financial security measures with modern ML techniques for enhanced accuracy.</p>
-                    <div class="project-details">
-                        <h4>Key Learning Outcomes:</h4>
-                        <ul>
-                            <li>ML model development and training</li>
-                            <li>Feature engineering for financial data</li>
-                            <li>Model performance optimization</li>
-                        </ul>
-                    </div>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>Scikit-learn</span>
-                        <span>TensorFlow</span>
-                        <span>SQL</span>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Built a machine learning-based fraud detection system for financial transactions. The system uses anomaly detection techniques and supervised learning models to identify potentially fraudulent activities. It processes transaction data in real-time and generates alerts for suspicious patterns.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>Machine Learning</span>
+                            <span>Anomaly Detection</span>
+                            <span>Data Security</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Real-time monitoring</li>
+                                    <li>Ensemble models</li>
+                                    <li>Feature engineering</li>
+                                    <li>Alert system</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="EduPayAudit: HigherEd Payroll System">
+                    </div>
+                    <div class="project-header">
+                        <h3>EduPayAudit: HigherEd Payroll System</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/CodeQueenie/EduPayAudit" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Developed a specialized payroll auditing system for higher education institutions. The system automates the verification of faculty and staff payroll data, identifies discrepancies, and ensures compliance with institutional policies and regulations. It includes reporting tools for financial administrators and department heads.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>SQL</span>
+                            <span>Data Analysis</span>
+                            <span>Compliance</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Automated auditing</li>
+                                    <li>Compliance checking</li>
+                                    <li>Custom reporting</li>
+                                    <li>Role-based access</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Financial Assistant">
+                    </div>
+                    <div class="project-header">
+                        <h3>Financial Assistant</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/CodeQueenie/Financial_Chatbot" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Developed a streamlined financial application featuring three core tools: a stock information lookup that uses reliable demo data for key stocks, a personal finance calculator to track expenses and savings, and a curated financial news browser. The application boasts an intuitive interface and remains fully functional offline when external data sources are unavailable.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>API Integration</span>
+                            <span>Data Analysis</span>
+                            <span>Data Science</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Stock information lookup</li>
+                                    <li>Personal finance calculator</li>
+                                    <li>Financial news browser</li>
+                                    <li>Offline functionality</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Weekly Wellness Newsletter Generator">
+                    </div>
+                    <div class="project-header">
+                        <h3>Weekly Wellness Newsletter Generator</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/CodeQueenie/Wellness_Newsletter_Generator" target="_blank" title="View on GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <p class="project-description">
+                            Created an automated system that generates personalized wellness newsletters. The application curates content based on user preferences, including healthy recipes, workout routines, meditation practices, and wellness tips. It uses natural language processing to summarize articles and create engaging content.
+                        </p>
+                        <div class="project-skills">
+                            <span>Python</span>
+                            <span>NLP</span>
+                            <span>Content Generation</span>
+                            <span>Email Automation</span>
+                        </div>
+                        <div class="project-details">
+                            <div class="project-features">
+                                <h4>Key Features:</h4>
+                                <ul>
+                                    <li>Content curation</li>
+                                    <li>Personalization engine</li>
+                                    <li>Responsive templates</li>
+                                    <li>Scheduling system</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-projects">
+                <a href="https://github.com/CodeQueenie?tab=repositories" target="_blank" class="view-all-btn">
+                    <i class="fab fa-github"></i> View All Projects on GitHub
+                </a>
             </div>
         </div>
 
@@ -568,7 +937,7 @@
 
                 <div class="education-item">
                     <div class="education-header">
-                        <h3>Business Administration & Management</h3>
+                        <h3>Associate's Degree in Business Administration & Management</h3>
                         <div class="institution">Briarwood College</div>
                         <div class="period">2001 – 2004</div>
                     </div>
@@ -588,10 +957,14 @@
 
         <div id="contact" class="tab-content">
             <h2>Get in Touch</h2>
+            <div class="contact-intro">
+                <p>I'm always interested in discussing new opportunities, data analytics projects, or how AI and automation can transform your business operations. Whether you have a specific project in mind or just want to connect, I'd love to hear from you!</p>
+            </div>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
                         <p><a href="mailto:nicoleleguern.pro@gmail.com">nicoleleguern.pro@gmail.com</a></p>
                     </div>
                     <div class="contact-item">
@@ -606,14 +979,16 @@
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
+                        <h3>Location</h3>
                         <p>North Central Massachusetts</p>
+                        <p class="availability">Available for remote work & local opportunities</p>
                     </div>
                 </div>
                 <div class="contact-form">
                     <h3>Send a Message</h3>
-                    <form id="contact-form" action="https://formsubmit.co/nicoleleguern.pro@gmail.com" method="POST" onsubmit="this.querySelector('.submit-btn').classList.add('loading')">
+                    <p class="form-intro">Have a question or want to discuss a potential collaboration? Fill out the form below and I'll get back to you as soon as possible.</p>
+                    <form id="contact-form" action="https://formsubmit.co/ajax/nicoleleguern.pro@gmail.com" method="POST">
                         <input type="hidden" name="_subject" value="New contact from portfolio website">
-                        <input type="hidden" name="_next" value="https://codequeenie.github.io/personal_website/thank-you.html">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
@@ -630,9 +1005,12 @@
                             <label for="message">Message</label>
                             <textarea id="message" name="message" required></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
+                        </button>
                     </form>
-                    <div id="form-status" style="margin-top: 1rem; display: none;"></div>
+                    <div id="form-status" class="form-status"></div>
                 </div>
             </div>
         </div>
@@ -643,43 +1021,89 @@
     </footer>
 
     <script>
+        // Tab navigation
         document.addEventListener('DOMContentLoaded', function() {
-            // Get all tab links and content
-            const tabLinks = document.querySelectorAll('.tabs a');
+            const tabs = document.querySelectorAll('.tab');
             const tabContents = document.querySelectorAll('.tab-content');
-
-            // Add click event to each tab
-            tabLinks.forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault();
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
                     
-                    // Remove active class from all tabs and content
-                    tabLinks.forEach(l => l.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
                     
-                    // Add active class to clicked tab and corresponding content
-                    link.classList.add('active');
-                    document.querySelector(link.getAttribute('href')).classList.add('active');
+                    // Show the corresponding tab content
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
                 });
             });
-
-            // Handle hash change
-            function handleHash() {
-                const hash = window.location.hash || '#about';
-                const tab = document.querySelector(`[href="${hash}"]`);
-                if (tab) {
-                    tabLinks.forEach(l => l.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.querySelector(hash).classList.add('active');
-                }
-            }
-
-            // Listen for hash changes
-            window.addEventListener('hashchange', handleHash);
             
-            // Handle initial load
-            handleHash();
+            // Set the first tab as active by default
+            tabs[0].click();
+            
+            // Handle contact form submission
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading spinner
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const btnText = submitBtn.querySelector('.btn-text');
+                    const spinner = submitBtn.querySelector('.spinner');
+                    
+                    btnText.style.display = 'none';
+                    spinner.style.display = 'inline-block';
+                    submitBtn.disabled = true;
+                    
+                    // Collect form data
+                    const formData = new FormData(this);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+                    
+                    // Send form data using fetch
+                    fetch('https://formsubmit.co/ajax/nicoleleguern.pro@gmail.com', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Redirect to thank you page
+                            window.location.href = 'thank-you.html';
+                        } else {
+                            formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
+                            formStatus.style.display = 'block';
+                            
+                            // Reset button
+                            btnText.style.display = 'inline-block';
+                            spinner.style.display = 'none';
+                            submitBtn.disabled = false;
+                        }
+                    })
+                    .catch(error => {
+                        formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
+                        formStatus.style.display = 'block';
+                        
+                        // Reset button
+                        btnText.style.display = 'inline-block';
+                        spinner.style.display = 'none';
+                        submitBtn.disabled = false;
+                    });
+                });
+            }
         });
     </script>
     <script src="js/script.js"></script>
