@@ -1,6 +1,6 @@
 # Nicole LeGuern's Portfolio Website
 
-Welcome to my professional portfolio website! Visit the live site at: [codequeenie.github.io/personal_website](https://codequeenie.github.io/personal_website)
+Welcome to my professional portfolio website! Visit the live site at: [codequeenie.github.io/personal_website](https://codequeenie.github.io/pro)
 
 ## 🌟 Features
 
@@ -14,7 +14,7 @@ Welcome to my professional portfolio website! Visit the live site at: [codequeen
 ## 🚀 Quick Start
 
 ### View Online
-Visit [codequeenie.github.io/personal_website](https://codequeenie.github.io/personal_website)
+Visit [codequeenie.github.io/personal_website](https://codequeenie.github.io/pro)
 
 ### Run Locally
 1. Clone the repository:
@@ -46,7 +46,7 @@ Visit [codequeenie.github.io/personal_website](https://codequeenie.github.io/per
 Have questions or want to connect?
 - 💼 [LinkedIn](https://www.linkedin.com/in/nicoleleguern)
 - 📧 [Email](mailto:nicoleleguern.pro@gmail.com)
-- 🌐 [Portfolio](https://codequeenie.github.io/personal_website)
+- 🌐 [Portfolio](https://codequeenie.github.io/pro)
 
 ## 📝 License
 
