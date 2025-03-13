@@ -1,6 +1,6 @@
 # Nicole LeGuern's Portfolio Website
 
-Welcome to my professional portfolio website! Visit the live site at: [codequeenie.github.io/personal_website](https://codequeenie.github.io/pro)
+Welcome to my professional portfolio website! Visit the live site at: [codequeenie.github.io/pro](https://codequeenie.github.io/pro)
 
 ## 🌟 Features
 
@@ -19,7 +19,7 @@ Visit [codequeenie.github.io/personal_website](https://codequeenie.github.io/pro
 ### Run Locally
 1. Clone the repository:
    ```bash
-   git clone https://github.com/CodeQueenie/personal_website.git
+   git clone https://github.com/CodeQueenie/pro.git
    ```
 2. Start a local server:
    ```bash
