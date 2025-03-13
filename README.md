@@ -14,7 +14,7 @@ Welcome to my professional portfolio website! Visit the live site at: [codequeen
 ## 🚀 Quick Start
 
 ### View Online
-Visit [codequeenie.github.io/personal_website](https://codequeenie.github.io/pro)
+Visit [codequeenie.github.io/pro](https://codequeenie.github.io/pro)
 
 ### Run Locally
 1. Clone the repository:
