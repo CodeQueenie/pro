@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nicole LeGuern - Senior Technical Customer Success Leader specializing in client experiences, revenue operations, and operational efficiency.">
-    <meta name="keywords" content="Technical Customer Success, Revenue Operations, CRM Expertise, Automation, Data Analytics">
-    <title>Nicole LeGuern | Senior Technical Customer Success Leader</title>
+    <meta name="description" content="Nicole LeGuern - Passionate about delivering efficient, impactful solutions through data analytics, automation, and process optimization.">
+    <meta name="keywords" content="Data Analytics, Automation, Process Optimization, Python, Client Solutions">
+    <title>Nicole LeGuern | Innovative Problem Solver</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -27,6 +27,23 @@
                     this.classList.add('active');
                     const target = this.getAttribute('data-tab');
                     document.getElementById(target).classList.add('active');
+                });
+            });
+
+            // Handle "Explore My Work" buttons
+            const exploreWorkButtons = document.querySelectorAll('a[href="#projects"]');
+            exploreWorkButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to projects tab and content
+                    const projectsTab = document.querySelector('a[data-tab="projects"]');
+                    projectsTab.classList.add('active');
+                    document.getElementById('projects').classList.add('active');
                 });
             });
 
@@ -296,15 +313,18 @@
 </head>
 <body>
     <header>
-        <h1>Nicole LeGuern</h1>
-        <p class="tagline">Senior Technical Customer Success Leader</p>
+        <div class="header-content">
+            <img src="images/test_chatbot_nicoleleguern_headshot.jpg" alt="Nicole LeGuern" class="headshot">
+            <div class="header-text">
+                <h1 style="font-size: 4rem; margin-bottom: 0.5rem; font-family: 'Arial', 'Helvetica', sans-serif; letter-spacing: 0.03em; font-weight: 700;">Nicole LeGuern</h1>
+                <p style="text-align: center; width: 100%; margin: 0 auto; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-secondary); font-size: 1.2rem;">Passionate About Delivering Efficient, Impactful Solutions</p>
+            </div>
+        </div>
         <nav>
             <ul class="tabs">
-                <li><a href="#about" class="active" data-tab="about">About</a></li>
-                <!-- Experience tab temporarily hidden -->
-                <li><a href="#skills" data-tab="skills">Technical Skills</a></li>
+                <li><a href="#about" data-tab="about" class="active">About</a></li>
+                <li><a href="#skills" data-tab="skills">Skill Set</a></li>
                 <li><a href="#projects" data-tab="projects">Projects</a></li>
-                <!-- Education tab temporarily hidden -->
                 <li><a href="#contact" data-tab="contact">Contact</a></li>
             </ul>
         </nav>
@@ -321,145 +341,110 @@
                 <div class="hero-parallax-stars"></div>
                 <div class="hero-parallax-glow"></div>
                 <div class="hero-content">
-                    <h1 class="hero-headline">Elevating Customer Success Through Technology</h1>
-                    <p class="hero-subheadline">Helping organizations optimize operations, enhance client experiences, and drive measurable growth</p>
-                    <a href="#projects" class="hero-cta" onclick="document.querySelector('a[data-tab=\'projects\']').click(); return false;">Explore My Work</a>
+                    <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Data Analytics | Automation & Process Optimization | Client-Focused Solutions</h2>
+                    <p class="hero-subtitle">Combining technical expertise with business insight to deliver results that matter.</p>
                 </div>
             </div>
-            <div class="about-content">
-                <div class="about-header">
-                    <div class="profile-section">
-                        <div class="profile-image">
-                            <!-- Using the actual headshot image -->
-                            <img src="images/test_chatbot_nicoleleguern_headshot.jpg" alt="Nicole LeGuern" class="headshot">
-                        </div>
-                        <div class="location-info">
-                            <!-- Location and followers information removed as requested -->
-                        </div>
-                    </div>
-                </div>
-                <p class="highlight-text">Senior Technical Customer Success Leader</p>
-                
-                <div class="professional-summary">
-                    <p>As a senior leader in Technical Customer Success, I bring over 15 years of experience in building client relationships, driving customer retention, and implementing tech-driven solutions to optimize operations and accelerate revenue growth.</p>
+            
+            <div class="about-section">
+                <div class="about-content">
+                    <h3 style="font-weight: 800; font-size: 1.8rem; margin-bottom: 1.2rem; text-align: left; color: var(--accent-2); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Innovative Problem Solver</h3>
                     
-                    <p>My background uniquely combines deep client-facing experience in financial services, logistics, and operations with technical know-how in automation, AI-driven tools, CRM management, and data analytics. I have a proven track record of being the go-to support person, implementing strategies that enhance customer satisfaction, streamline processes, and drive measurable results.</p>
-                </div>
-                
-                <h3>Key Strengths:</h3>
-                <ul class="specialization-list">
-                    <li>Technical Customer Success & Strategic Client Management</li>
-                    <li>Revenue Operations (RevOps) & Process Optimization</li>
-                    <li>Advanced CRM & Workflow Automation</li>
-                    <li>Data-Driven Insights & Reporting</li>
-                </ul>
-                
-                <div class="core-competencies">
-                    <h3 class="section-title text-center">Core Competencies</h3>
-                    <div class="core-skills-grid">
-                        <div class="core-skill-item">
-                            <h4><i class="fas fa-comments"></i> Executive-level Client Support & Communication</h4>
-                            <p>Building and maintaining strong client relationships through strategic communication, proactive support, and exceptional service delivery.</p>
-                        </div>
-                        <div class="core-skill-item">
-                            <h4><i class="fas fa-database"></i> Salesforce & CRM System Expertise</h4>
-                            <p>Leveraging deep knowledge of Salesforce and other CRM platforms to optimize client management, streamline processes, and drive data-informed decisions.</p>
-                        </div>
-                        <div class="core-skill-item">
-                            <h4><i class="fas fa-cogs"></i> Automation for Efficiency</h4>
-                            <p>Creating and implementing automation solutions using Python, Zapier, and APIs to reduce manual work, increase accuracy, and improve operational efficiency.</p>
-                        </div>
-                        <div class="core-skill-item">
-                            <h4><i class="fas fa-chart-bar"></i> Data Analytics & Visualization</h4>
-                            <p>Utilizing Excel, Tableau, and Power BI to transform raw data into actionable insights, compelling visualizations, and strategic recommendations.</p>
-                        </div>
+                    <p>I blend technical skills and business acumen to build solutions that enhance decision-making and improve operational efficiency. With experience in customer success, data analytics, and process optimization, I focus on creating tools and strategies that empower teams to achieve their objectives.</p>
+                    
+                    <p>From automating workflows to deriving actionable insights from complex datasets, my goal is to help businesses thrive through smarter, more efficient operations.</p>
+                    
+                    <div class="current-focus">
+                        <h4 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 0.8rem; text-align: left; color: var(--accent-2); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Current Focus:</h4>
+                        <p>Eager to apply my expertise in Python, automation, and analytics to help organizations enhance their operations and deliver exceptional client outcomes.</p>
+                    </div>
+                    
+                    <div class="quick-links spaced">
+                        <a href="#projects" class="quick-link" style="margin-right: 20px; background-color: var(--accent-2); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: all 0.3s ease;">
+                            <i class="fas fa-laptop-code"></i> Explore my work
+                        </a>
+                        <a href="mailto:nicoleleguern.pro@gmail.com" class="quick-link" style="background-color: var(--accent-2); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: all 0.3s ease;">
+                            <i class="fas fa-envelope"></i> Get in touch
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="skills" class="tab-content">
-            <h2>Technical Skills</h2>
+            <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Skill Set</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3><i class="fas fa-users"></i> Customer Success & Client Management</h3>
+                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-users"></i> Customer Success & Account Management</h3>
                     <ul>
                         <li>Strategic Client Engagement</li>
                         <li>Customer Lifecycle Management</li>
                         <li>Retention Strategy</li>
-                        <li>Client Onboarding</li>
+                        <li>Client Onboarding & Communication</li>
+                        <li>Client-Facing Experience</li>
                         <li>Executive Communication</li>
-                        <li>Stakeholder Management</li>
-                        <li>Client Needs Assessment</li>
                         <li>Relationship Building</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> CRM & Business Systems</h3>
+                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-database"></i> CRM Tools & Business Systems</h3>
                     <ul>
                         <li>Salesforce (Admin & Lightning)</li>
+                        <li>Salesforce Chatter</li>
                         <li>Mailchimp</li>
+                        <li>Redtail</li>
                         <li>Google Workspace</li>
-                        <li>CRM Strategy</li>
-                        <li>System Implementation</li>
-                        <li>Process Documentation</li>
-                        <li>User Training</li>
-                        <li>System Integration</li>
+                        <li>CRM Strategy & System Integration</li>
+                        <li>Process Documentation & User Training</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-laptop-code"></i> Technical Tools</h3>
+                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-laptop-code"></i> Programming & Analytics</h3>
                     <ul>
-                        <li>Python</li>
-                        <li>Zapier</li>
-                        <li>APIs</li>
-                        <li>Workflow Automation</li>
-                        <li>Excel</li>
-                        <li>SQL</li>
-                        <li>Process Optimization</li>
+                        <li>Python, SQL, JupyterLab, Pandas, NumPy</li>
+                        <li>Data Analysis & Process Optimization</li>
+                        <li>Python Automation & Scripting</li>
                         <li>Technical Documentation</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-chart-pie"></i> Data & Analytics</h3>
+                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-chart-pie"></i> Data Visualization & Reporting</h3>
                     <ul>
-                        <li>Analytics Dashboards</li>
-                        <li>Data Visualization</li>
-                        <li>KPI Development</li>
-                        <li>Metrics Reporting</li>
-                        <li>Business Intelligence</li>
-                        <li>Performance Analysis</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-brain"></i> AI & Automation</h3>
-                    <ul>
-                        <li>AI-Powered Tools</li>
-                        <li>Prompt Engineering</li>
-                        <li>Workflow Automation</li>
-                        <li>LLM Integration</li>
-                        <li>AI for Customer Success</li>
+                        <li>Analytics Dashboards & Custom Dashboards</li>
+                        <li>Data Visualization Tools (Plotly, Matplotlib, Seaborn)</li>
                         <li>Automated Reporting</li>
-                        <li>Efficiency Optimization</li>
-                        <li>AI-Enhanced Analytics</li>
+                        <li>Performance & Operational Efficiency Analysis</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3><i class="fas fa-comments"></i> Remote Collaboration Tools</h3>
+                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-brain"></i> AI-Powered Automation</h3>
                     <ul>
-                        <li>Slack</li>
-                        <li>Zoom</li>
-                        <li>Microsoft Teams</li>
-                        <li>Google Workspace</li>
-                        <li>GitHub</li>
-                        <li>Remote Communication</li>
+                        <li>AI for Business Solutions & Analytics</li>
+                        <li>LLM Integration (OpenAI GPT, LangChain)</li>
+                        <li>Prompt Engineering & Automation Tools</li>
+                        <li>Workflow Automation</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-comments"></i> Remote Collaboration & Communication</h3>
+                    <ul>
+                        <li>Client Communication</li>
+                        <li>Remote Collaboration Tools (Zoom, GitHub, Microsoft Teams)</li>
+                        <li>Strong Written & Verbal Communication</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-chart-line"></i> Business Intelligence & Metrics</h3>
+                    <ul>
+                        <li>Data-Driven Decision Making</li>
+                        <li>Performance Analysis & Business Systems</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <div id="projects" class="tab-content">
-            <h2>Projects</h2>
+            <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Projects</h2>
             
             <div class="projects-container">
                 <div class="project-card">
@@ -467,7 +452,7 @@
                         <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="InspireSearch: AI-Powered Visual Search Engine">
                     </div>
                     <div class="project-header">
-                        <h3>InspireSearch: AI-Powered Visual Search Engine</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">InspireSearch: AI-Powered Visual Search Engine</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/InspireSearch---AI_Powered_Visual_Search_Engine" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -487,7 +472,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Visual Similarity Search</li>
                                     <li>Deep Learning Integration</li>
@@ -504,7 +489,7 @@
                         <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Aesthetic Lens: AI-Powered Image Aesthetic Scoring Tool">
                     </div>
                     <div class="project-header">
-                        <h3>Aesthetic Lens: AI-Powered Image Aesthetic Scoring Tool</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Aesthetic Lens: AI-Powered Image Aesthetic Scoring Tool</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/Aesthetic-Lens---AI_Powered_Image_Aesthetic_Scoring_Tool" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -525,7 +510,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Modern, Intuitive Web Interface</li>
                                     <li>AI-Powered Aesthetic Scoring</li>
@@ -542,7 +527,7 @@
                         <img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="TrendVisor: Dynamic Metrics Dashboard for Trend Prediction">
                     </div>
                     <div class="project-header">
-                        <h3>TrendVisor: Dynamic Metrics Dashboard for Trend Prediction</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">TrendVisor: Dynamic Metrics Dashboard for Trend Prediction</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/TrendVisor---Dynamic_Metrics_Dashboard_for_Trend_Prediction" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -563,7 +548,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Advanced Time-Series Forecasting</li>
                                     <li>Interactive Data Visualizations</li>
@@ -577,10 +562,10 @@
 
                 <div class="project-card">
                     <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="LLM-Powered Clinical Test Extraction Pipeline">
+                        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="LLM-Powered Clinical Test Extraction Pipeline">
                     </div>
                     <div class="project-header">
-                        <h3>LLM-Powered Clinical Test Extraction Pipeline</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">LLM-Powered Clinical Test Extraction Pipeline</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/LLM-Powered_Clinical_Test_Extraction_Pipeline" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -599,7 +584,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Flexible data ingestion</li>
                                     <li>Dynamic prompt engineering</li>
@@ -616,7 +601,7 @@
                         <img src="https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="March Machine Learning Mania 2025">
                     </div>
                     <div class="project-header">
-                        <h3>March Machine Learning Mania 2025</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">March Machine Learning Mania 2025</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/march_mania_2025" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -635,7 +620,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Data processing pipeline</li>
                                     <li>Feature engineering</li>
@@ -652,7 +637,7 @@
                         <img src="https://images.unsplash.com/photo-1591994843349-f415893b3a6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cryptocurrency Price Tracker">
                     </div>
                     <div class="project-header">
-                        <h3>Cryptocurrency Price Tracker</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Cryptocurrency Price Tracker</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/Cryptocurrency_Price_Tracker" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -671,7 +656,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Automated data collection</li>
                                     <li>SQL analytics</li>
@@ -688,7 +673,7 @@
                         <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="EduPayAudit: HigherEd Payroll System">
                     </div>
                     <div class="project-header">
-                        <h3>EduPayAudit: HigherEd Payroll System</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">EduPayAudit: HigherEd Payroll System</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/EduPayAudit" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -707,7 +692,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Automated auditing</li>
                                     <li>Compliance checking</li>
@@ -724,7 +709,7 @@
                         <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Financial Assistant">
                     </div>
                     <div class="project-header">
-                        <h3>Financial Assistant</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Financial Assistant</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/Financial_Chatbot" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -743,7 +728,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Stock information lookup</li>
                                     <li>Personal finance calculator</li>
@@ -760,7 +745,7 @@
                         <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Weekly Wellness Newsletter Generator">
                     </div>
                     <div class="project-header">
-                        <h3>Weekly Wellness Newsletter Generator</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Weekly Wellness Newsletter Generator</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/Wellness_Newsletter_Generator" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -779,7 +764,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Content curation</li>
                                     <li>Personalization engine</li>
@@ -793,10 +778,10 @@
 
                 <div class="project-card">
                     <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Customer Review Sentiment Analysis">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f415893b3a6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Customer Review Sentiment Analysis">
                     </div>
                     <div class="project-header">
-                        <h3>Customer Review Sentiment Analysis</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Customer Review Sentiment Analysis</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/Customer_Review_Sentiment_Analysis" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -815,7 +800,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>Text preprocessing</li>
                                     <li>Multiple ML models</li>
@@ -832,7 +817,7 @@
                         <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="MNIST Digit Classifier">
                     </div>
                     <div class="project-header">
-                        <h3>MNIST Digit Classifier</h3>
+                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">MNIST Digit Classifier</h3>
                         <div class="project-links">
                             <a href="https://github.com/CodeQueenie/MNIST_Digit_Classifier" target="_blank" title="View on GitHub">
                                 <i class="fab fa-github"></i>
@@ -851,7 +836,7 @@
                         </div>
                         <div class="project-details">
                             <div class="project-features">
-                                <h4>Key Features:</h4>
+                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
                                 <ul>
                                     <li>CNN architecture</li>
                                     <li>Data augmentation</li>
@@ -864,105 +849,36 @@
                 </div>
             </div>
             <div class="view-all-projects">
-                <a href="https://github.com/CodeQueenie" target="_blank" class="view-all-btn">
+                <a href="https://github.com/CodeQueenie" target="_blank" class="view-all-btn" style="font-weight: 700; font-size: 1.1rem; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                     View All Projects <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
 
-        <!-- Education section temporarily hidden -->
-        <!--
-        <div id="education" class="tab-content">
-            <h2>Education</h2>
-            <div class="education-timeline">
-                <div class="education-item">
-                    <div class="education-header">
-                        <h3>AI-Powered Business & Data Analytics Specialist</h3>
-                        <div class="institution">Network Technology Academy Institute</div>
-                        <div class="period">2024 – March 2025</div>
-                    </div>
-                    <p>Advanced training in AI-powered data analytics and data science techniques.</p>
-                    <div class="education-highlights">
-                        <h4>Key Focus Areas:</h4>
-                        <ul>
-                            <li>Machine Learning & AI Applications</li>
-                            <li>Data Analytics & Visualization</li>
-                            <li>Business Intelligence</li>
-                            <li>Predictive Analytics</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="education-item">
-                    <div class="education-header">
-                        <h3>Full Stack Software Developer</h3>
-                        <div class="institution">Salem State University</div>
-                        <div class="period">2022 – 2024</div>
-                    </div>
-                    <p>Professional certification in full-stack web development.</p>
-                    <div class="education-highlights">
-                        <h4>Key Focus Areas:</h4>
-                        <ul>
-                            <li>Front-end Development (React, Vue.js)</li>
-                            <li>Back-end Development (Node.js, Django)</li>
-                            <li>Database Management</li>
-                            <li>Web Security & Performance</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="education-item">
-                    <div class="education-header">
-                        <h3>Associate's Degree in Business Administration & Management</h3>
-                        <div class="institution">Briarwood College</div>
-                        <div class="period">2001 – 2004</div>
-                    </div>
-                    <p>Foundation in business principles and management practices.</p>
-                    <div class="education-highlights">
-                        <h4>Key Focus Areas:</h4>
-                        <ul>
-                            <li>Business Operations</li>
-                            <li>Financial Management</li>
-                            <li>Strategic Planning</li>
-                            <li>Organizational Behavior</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
-
         <div id="contact" class="tab-content">
-            <h2>Get in Touch</h2>
+            <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Get in Touch</h2>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
+                        <h3 style="font-weight: 700; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Email</h3>
                         <p><a href="mailto:nicoleleguern.pro@gmail.com">nicoleleguern.pro@gmail.com</a></p>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
-                        <h3>LinkedIn</h3>
-                        <p><a href="https://www.linkedin.com/in/nicoleleguern/" target="_blank">Connect on LinkedIn</a></p>
+                        <h3 style="font-weight: 700; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">LinkedIn</h3>
+                        <p><a href="https://www.linkedin.com/in/nicoleleguern/" target="_blank">linkedin.com/in/nicoleleguern</a></p>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-github"></i>
-                        <h3>GitHub</h3>
-                        <p><a href="https://github.com/CodeQueenie" target="_blank">View My Projects</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Location</h3>
-                        <p>North Central Massachusetts</p>
-                        <p class="availability">Available for remote work</p>
+                        <h3 style="font-weight: 700; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">GitHub</h3>
+                        <p><a href="https://github.com/CodeQueenie" target="_blank">github.com/CodeQueenie</a></p>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <h3>Send a Message</h3>
-                    <p class="form-intro">Have a question or want to discuss a potential collaboration? Fill out the form below and I'll get back to you as soon as possible.</p>
-                    <form id="contact-form" action="https://formsubmit.co/ajax/nicoleleguern.pro@gmail.com" method="POST">
-                        <input type="hidden" name="_subject" value="New contact from portfolio website">
+                
+                <div class="contact-form-container">
+                    <h3 style="font-weight: 700; font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Send Me a Message</h3>
+                    <form action="thank-you.html" method="GET" class="contact-form">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" id="name" name="name" required>
@@ -977,14 +893,10 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" required></textarea>
+                            <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">
-                            <span class="btn-text">Send Message</span>
-                            <span class="spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
-                        </button>
+                        <button type="submit" class="submit-btn">Send Message</button>
                     </form>
-                    <div id="form-status" class="form-status"></div>
                 </div>
             </div>
         </div>

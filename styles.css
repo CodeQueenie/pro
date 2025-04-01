@@ -26,7 +26,10 @@ body {
     background-color: var(--primary-bg);
     margin: 0;
     padding: 0;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 header {
@@ -38,9 +41,28 @@ header {
     position: relative;
 }
 
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary);
     margin-top: 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
 }
 
 a {
@@ -86,12 +108,13 @@ nav {
     display: inline-block;
     background-color: var(--card-bg);
     font-weight: 500;
+    transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .tabs a:hover, .tabs a.active {
     background-color: var(--accent-2);
     color: var(--text-primary);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
 }
 
 /* Tab Navigation */
@@ -118,7 +141,7 @@ nav {
 .tabs a:hover, .tabs a.active {
     background-color: var(--accent-2);
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
 }
 
 /* Tab Content */
@@ -138,8 +161,8 @@ nav {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(10px) translateZ(0); }
+    to { opacity: 1; transform: translateY(0) translateZ(0); }
 }
 
 /* Main Content Styles */
@@ -175,10 +198,12 @@ main {
     padding: 1.5rem;
     border-radius: 10px;
     transition: transform 0.3s ease;
+    transform: translateZ(0); /* Force hardware acceleration */
+    will-change: transform; /* Hint for browser optimization */
 }
 
 .skill-category:hover, .project-card:hover, .core-skill-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) translateZ(0);
 }
 
 /* Project Cards and Grid */
@@ -200,11 +225,6 @@ main {
     flex-direction: column;
 }
 
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
 .project-thumbnail {
     height: 200px;
     overflow: hidden;
@@ -215,6 +235,7 @@ main {
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .project-card:hover .project-thumbnail img {
@@ -858,6 +879,16 @@ h2::after {
     border-left: 4px solid var(--accent-2);
     padding-left: 20px;
     margin: 20px 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    letter-spacing: 0.01em;
+}
+
+.highlight-text {
+    text-shadow: 0 0 1px rgba(147, 112, 219, 0.1);
+    font-weight: 600;
 }
 
 nav {
@@ -1529,6 +1560,7 @@ button:focus:not(:active)::after,
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .featured-project-card:hover .featured-project-image img {
@@ -2133,4 +2165,35 @@ input:focus, textarea:focus, select:focus {
     text-align: center;
     margin: 1.5rem 0;
     font-weight: normal;
+}
+
+.highlight-text, 
+.tab-content h2, 
+.current-focus h4,
+.view-all-btn,
+.contact-info h3,
+.contact-form-container h3 {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    letter-spacing: 0.01em;
+}
+
+.tab-content h2 {
+    text-shadow: 0 0 1px rgba(240, 240, 240, 0.1);
+    font-weight: 700;
+}
+
+.current-focus h4 {
+    font-weight: 600;
+}
+
+.view-all-btn {
+    font-weight: 500;
+}
+
+.contact-info h3, 
+.contact-form-container h3 {
+    font-weight: 600;
 }
