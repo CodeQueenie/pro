@@ -24,10 +24,10 @@ Visit [codequeenie.github.io/pro](https://codequeenie.github.io/pro)
 2. Start a local server:
    ```bash
    # Using Python (Python 3 required)
-   python -m http.server 8000
+   python -m http.server 8080
    ```
 3. Open in your browser:
-   - Visit `http://localhost:8000`
+   - Visit `http://localhost:8080`
    - Note: Opening index.html directly may break some features. Using a local server is recommended.
 
 ## 🛠️ Technologies

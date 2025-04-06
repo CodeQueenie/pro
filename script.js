@@ -1,133 +1,106 @@
-// JavaScript for form submission and interactivity
-
-// Form submission handler
-document.querySelector('form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-    alert('Thank you for your message!');
-});
-
-// Chatbot functionality
 document.addEventListener('DOMContentLoaded', () => {
-    const chatToggle = document.getElementById('chatToggle');
-    const chatContainer = document.getElementById('chatContainer');
-    const closeChat = document.getElementById('closeChat');
-    const chatMessages = document.getElementById('chatMessages');
-    const userInput = document.getElementById('userInput');
-    const sendMessageBtn = document.getElementById('sendMessage');
-    const quickQuestions = document.getElementById('quickQuestions');
+    // Updated Typing Animation for Hero Subtitle with more AI flair (for the main hero)
+    const typingElement = document.getElementById('typing-subtitle');
+    if (typingElement) {
+        const phrases = [
+            "Accelerating innovation with generative AI.",
+            "Empowering businesses with intelligent automation.",
+            "Deploying multi-agent systems for real-world impact.",
+            "Transforming data into actionable insights."
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 100;
+        const deletingSpeed = 50;
+        const delayBetweenPhrases = 1500;
 
-    // Chat responses database
-    const responses = {
-        "background": "I graduated with honors in Computer Science and have 5+ years of experience in software development. I specialize in web development and AI applications.",
-        "skills": "My core skills include: \n- Frontend: React, Vue.js, JavaScript\n- Backend: Node.js, Python\n- Database: MongoDB, PostgreSQL\n- Cloud: AWS, Azure",
-        "contact": "You can reach me through:\n- Email: [Your email]\n- LinkedIn: [Your LinkedIn]\n- Or use the contact form above!",
-        "projects": "I've worked on several exciting projects including:\n- AI-powered chatbot systems\n- E-commerce platforms\n- Data visualization dashboards",
-        "hello": "Hi there! How can I help you today?",
-        "hi": "Hello! What would you like to know about Nicole?",
-        "who are you": "I'm Nicole's chatbot assistant. I can tell you about her background, experience, and interests!",
-        "default": "I'm not sure about that. Would you like to know about Nicole's background, skills, projects, or how to contact her?"
-    };
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            let displayText = '';
 
-    // Auto-open chat after 2 seconds
-    setTimeout(() => {
-        chatContainer.style.display = 'block';
-        chatToggle.style.display = 'none';
-    }, 2000);
-
-    // Toggle chat window
-    chatToggle.addEventListener('click', () => {
-        chatContainer.style.display = 'block';
-        chatToggle.style.display = 'none';
-    });
-
-    // Close chat window
-    closeChat.addEventListener('click', () => {
-        chatContainer.style.display = 'none';
-        chatToggle.style.display = 'block';
-    });
-
-    // Handle quick question buttons
-    quickQuestions.addEventListener('click', (e) => {
-        if (e.target.classList.contains('quick-btn')) {
-            const question = e.target.dataset.question;
-            handleUserMessage(question);
-        }
-    });
-
-    // Send message function
-    function handleSendMessage() {
-        const message = userInput.value.trim();
-        if (message === '') return;
-        handleUserMessage(message);
-    }
-
-    // Handle user message
-    function handleUserMessage(message) {
-        // Add user message
-        addMessage(message, 'user-message');
-
-        // Get and add bot response
-        const response = getBotResponse(message);
-        setTimeout(() => {
-            addMessage(response, 'bot-message');
-        }, 500);
-
-        // Clear input if it's from the text input
-        if (userInput.value) {
-            userInput.value = '';
-        }
-    }
-
-    // Add message to chat
-    function addMessage(message, className) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${className}`;
-        
-        if (className === 'bot-message') {
-            const img = document.createElement('img');
-            img.src = 'images/profile.jpg';
-            img.alt = 'Nicole LeGuern';
-            img.className = 'message-profile-pic';
-            messageDiv.appendChild(img);
-        }
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'message-content';
-        contentDiv.innerHTML = message.replace(/\n/g, '<br>');
-        messageDiv.appendChild(contentDiv);
-        
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Get bot response based on user input
-    function getBotResponse(message) {
-        message = message.toLowerCase();
-        
-        // Check for exact matches first
-        for (const [key, value] of Object.entries(responses)) {
-            if (message.includes(key)) {
-                return value;
+            if (isDeleting) {
+                displayText = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                displayText = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
             }
+
+            typingElement.textContent = displayText;
+
+            let typeSpeed = isDeleting ? deletingSpeed : typingSpeed;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = delayBetweenPhrases;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = typingSpeed;
+            }
+
+            setTimeout(type, typeSpeed);
         }
-        
-        // Check for topic-based matches
-        if (message.includes('tell me about') || message.includes('what is')) {
-            for (const topic of ['background', 'skills', 'projects']) {
-                if (message.includes(topic)) {
-                    return responses[topic];
+
+        setTimeout(type, delayBetweenPhrases / 2);
+    }
+
+    // Tab Navigation Logic
+    const tabs = document.querySelectorAll('.tabs a');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    if (tabs.length > 0 && tabContents.length > 0) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-tab');
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                } else {
+                    console.error(`Tab content with ID '${targetId}' not found.`);
                 }
+            });
+        });
+
+        const activeTab = document.querySelector('.tabs a.active');
+        if (!activeTab && tabs.length > 0) {
+            tabs[0].classList.add('active');
+            const firstTargetId = tabs[0].getAttribute('data-tab');
+            const firstTargetContent = document.getElementById(firstTargetId);
+            if (firstTargetContent) {
+                firstTargetContent.classList.add('active');
+            }
+        } else if (activeTab) {
+            const activeTargetId = activeTab.getAttribute('data-tab');
+            const activeTargetContent = document.getElementById(activeTargetId);
+            tabContents.forEach(c => c.classList.remove('active'));
+            if (activeTargetContent) {
+                activeTargetContent.classList.add('active');
             }
         }
-        
-        return responses.default;
     }
 
-    // Event listeners for sending messages
-    sendMessageBtn.addEventListener('click', handleSendMessage);
-    userInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            handleSendMessage();
-        }
+    // Handle "Explore My Work" buttons
+    const exploreWorkButtons = document.querySelectorAll('a[href="#projects"]');
+    exploreWorkButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const projectsTab = document.querySelector('a[data-tab="projects"]');
+            const projectsContent = document.getElementById('projects');
+            if (projectsTab && projectsContent) {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                projectsTab.classList.add('active');
+                projectsContent.classList.add('active');
+                projectsContent.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.error('Projects tab or content not found for Explore button.');
+            }
+        });
     });
 });

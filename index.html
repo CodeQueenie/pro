@@ -1,998 +1,648 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Nicole LeGuern - Passionate about delivering efficient, impactful solutions through data analytics, automation, and process optimization.">
-    <meta name="keywords" content="Data Analytics, Automation, Process Optimization, Python, Client Solutions">
-    <title>Nicole LeGuern | Innovative Problem Solver</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab Navigation
-            const tabs = document.querySelectorAll('.tabs a');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    this.classList.add('active');
-                    const target = this.getAttribute('data-tab');
-                    document.getElementById(target).classList.add('active');
-                });
-            });
-
-            // Handle "Explore My Work" buttons
-            const exploreWorkButtons = document.querySelectorAll('a[href="#projects"]');
-            exploreWorkButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to projects tab and content
-                    const projectsTab = document.querySelector('a[data-tab="projects"]');
-                    projectsTab.classList.add('active');
-                    document.getElementById('projects').classList.add('active');
-                });
-            });
-
-            // Add animation classes to elements when they come into view
-            const animateOnScroll = function() {
-                const elements = document.querySelectorAll('.experience-item, .project-card, .skill-category, .education-item, .contact-form');
-                
-                elements.forEach((element, index) => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.2;
-                    
-                    if (elementPosition < screenPosition) {
-                        // Add staggered animation delay
-                        setTimeout(() => {
-                            element.classList.add('animate');
-                        }, index * 100); // 100ms delay between each element
-                    }
-                });
-                
-                // Add fade-in animations to other elements
-                const fadeElements = document.querySelectorAll('h2, .highlight-text, .current-focus');
-                fadeElements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.1;
-                    
-                    if (elementPosition < screenPosition) {
-                        element.classList.add('fade-in');
-                    }
-                });
-                
-                // Add slide-in animations from left/right
-                const slideLeftElements = document.querySelectorAll('.about-header, .contact-intro');
-                slideLeftElements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.1;
-                    
-                    if (elementPosition < screenPosition) {
-                        element.classList.add('slide-in-left');
-                    }
-                });
-                
-                const slideRightElements = document.querySelectorAll('.skills-section h2, .projects-section h2');
-                slideRightElements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.1;
-                    
-                    if (elementPosition < screenPosition) {
-                        element.classList.add('slide-in-right');
-                    }
-                });
-            };
-
-            // Run animation check on load and scroll
-            window.addEventListener('scroll', animateOnScroll);
-            // Initial run with slight delay to ensure elements are properly rendered
-            setTimeout(animateOnScroll, 300);
-            
-            // Add hover effects to project cards
-            const projectCards = document.querySelectorAll('.project-card');
-            projectCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px)';
-                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.3)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-                });
-            });
-            
-            // Add hover effects to skill tags
-            const skillTags = document.querySelectorAll('.skills-tags span');
-            skillTags.forEach(tag => {
-                tag.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-3px)';
-                    this.style.backgroundColor = 'var(--accent-1)';
-                    this.style.boxShadow = '0 5px 10px rgba(0, 0, 0, 0.2)';
-                });
-                
-                tag.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.backgroundColor = '';
-                    this.style.boxShadow = '';
-                });
-            });
-            
-            // Add subtle parallax effect to hero section
-            const heroSection = document.querySelector('.hero-section');
-            if (heroSection) {
-                window.addEventListener('scroll', function() {
-                    const scrollPosition = window.scrollY;
-                    heroSection.style.backgroundPosition = `center ${scrollPosition * 0.05}px`;
-                });
-            }
-            
-            // Carousel functionality
-            const carouselTrack = document.querySelector('.carousel-track');
-            const carouselSlides = document.querySelectorAll('.carousel-slide');
-            const indicators = document.querySelectorAll('.indicator');
-            const prevButton = document.querySelector('.carousel-button.prev');
-            const nextButton = document.querySelector('.carousel-button.next');
-            
-            if (carouselTrack && carouselSlides.length > 0) {
-                let currentSlide = 0;
-                const slideWidth = 100; // 100%
-                
-                // Set first slide as active
-                carouselSlides[0].classList.add('active');
-                
-                // Function to update carousel position
-                const updateCarousel = (index) => {
-                    // Remove active class from all slides and add to current
-                    carouselSlides.forEach(slide => slide.classList.remove('active'));
-                    setTimeout(() => {
-                        carouselSlides[index].classList.add('active');
-                    }, 50);
-                    
-                    // Update indicators
-                    indicators.forEach(indicator => indicator.classList.remove('active'));
-                    indicators[index].classList.add('active');
-                    
-                    // Move track to show current slide
-                    carouselTrack.style.transform = `translateX(-${index * slideWidth}%)`;
-                    
-                    // Update current slide index
-                    currentSlide = index;
-                };
-                
-                // Event listeners for prev/next buttons
-                prevButton.addEventListener('click', () => {
-                    const newIndex = (currentSlide - 1 + carouselSlides.length) % carouselSlides.length;
-                    updateCarousel(newIndex);
-                });
-                
-                nextButton.addEventListener('click', () => {
-                    const newIndex = (currentSlide + 1) % carouselSlides.length;
-                    updateCarousel(newIndex);
-                });
-                
-                // Event listeners for indicators
-                indicators.forEach((indicator, index) => {
-                    indicator.addEventListener('click', () => {
-                        updateCarousel(index);
-                    });
-                });
-                
-                // Auto-advance carousel every 5 seconds
-                let carouselInterval = setInterval(() => {
-                    const newIndex = (currentSlide + 1) % carouselSlides.length;
-                    updateCarousel(newIndex);
-                }, 5000);
-                
-                // Pause auto-advance when user interacts with carousel
-                const carouselContainer = document.querySelector('.carousel-container');
-                carouselContainer.addEventListener('mouseenter', () => {
-                    clearInterval(carouselInterval);
-                });
-                
-                carouselContainer.addEventListener('mouseleave', () => {
-                    carouselInterval = setInterval(() => {
-                        const newIndex = (currentSlide + 1) % carouselSlides.length;
-                        updateCarousel(newIndex);
-                    }, 5000);
-                });
-                
-                // Touch swipe support for mobile
-                let touchStartX = 0;
-                let touchEndX = 0;
-                
-                carouselContainer.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                });
-                
-                carouselContainer.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    handleSwipe();
-                });
-                
-                const handleSwipe = () => {
-                    const swipeThreshold = 50;
-                    if (touchEndX < touchStartX - swipeThreshold) {
-                        // Swipe left - next slide
-                        const newIndex = (currentSlide + 1) % carouselSlides.length;
-                        updateCarousel(newIndex);
-                    }
-                    if (touchEndX > touchStartX + swipeThreshold) {
-                        // Swipe right - previous slide
-                        const newIndex = (currentSlide - 1 + carouselSlides.length) % carouselSlides.length;
-                        updateCarousel(newIndex);
-                    }
-                };
-                
-                // Add keyboard navigation
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') {
-                        const newIndex = (currentSlide - 1 + carouselSlides.length) % carouselSlides.length;
-                        updateCarousel(newIndex);
-                    } else if (e.key === 'ArrowRight') {
-                        const newIndex = (currentSlide + 1) % carouselSlides.length;
-                        updateCarousel(newIndex);
-                    }
-                });
-            }
-            
-            // Handle contact form submission
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-            
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Show loading spinner
-                    const submitBtn = this.querySelector('.submit-btn');
-                    const btnText = submitBtn.querySelector('.btn-text');
-                    const spinner = submitBtn.querySelector('.spinner');
-                    
-                    btnText.style.display = 'none';
-                    spinner.style.display = 'inline-block';
-                    submitBtn.disabled = true;
-                    
-                    // Collect form data
-                    const formData = new FormData(this);
-                    const data = {};
-                    formData.forEach((value, key) => {
-                        data[key] = value;
-                    });
-                    
-                    // Send form data using fetch
-                    fetch('https://formsubmit.co/ajax/nicoleleguern.pro@gmail.com', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Redirect to thank you page
-                            window.location.href = 'thank-you.html';
-                        } else {
-                            formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
-                            formStatus.style.display = 'block';
-                            
-                            // Reset button
-                            btnText.style.display = 'inline-block';
-                            spinner.style.display = 'none';
-                            submitBtn.disabled = false;
-                        }
-                    })
-                    .catch(error => {
-                        formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
-                        formStatus.style.display = 'block';
-                        
-                        // Reset button
-                        btnText.style.display = 'inline-block';
-                        spinner.style.display = 'none';
-                        submitBtn.disabled = false;
-                    });
-                });
-            }
-        });
-    </script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Nicole LeGuern - Passionate about delivering impactful AI solutions through efficient operations and data-driven decision-making." name="description"/>
+  <meta content="AI, Data Analytics, Automation, Python, JavaScript, Full Stack, Operations" name="keywords"/>
+  <title>
+    Nicole LeGuern | Innovative AI-Powered Operations & Data Specialist
+  </title>
+  <link href="styles.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <img src="images/test_chatbot_nicoleleguern_headshot.jpg" alt="Nicole LeGuern" class="headshot">
-            <div class="header-text">
-                <h1 style="font-size: 4rem; margin-bottom: 0.5rem; font-family: 'Arial', 'Helvetica', sans-serif; letter-spacing: 0.03em; font-weight: 700;">Nicole LeGuern</h1>
-                <p style="text-align: center; width: 100%; margin: 0 auto; font-weight: 500; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-secondary); font-size: 1.2rem;">Passionate About Delivering Efficient, Impactful Solutions</p>
-            </div>
-        </div>
-        <nav>
-            <ul class="tabs">
-                <li><a href="#about" data-tab="about" class="active">About</a></li>
-                <li><a href="#skills" data-tab="skills">Skill Set</a></li>
-                <li><a href="#projects" data-tab="projects">Projects</a></li>
-                <li><a href="#contact" data-tab="contact">Contact</a></li>
+  <!-- Hero Section (Header) -->
+  <header class="hero-section">
+    <div class="header-content">
+      <h1>Hi, I’m Nicole</h1>
+      <h2>an AI-Powered Business &amp; Data Specialist</h2>
+      <p class="subtitle">
+        Passionate about 
+        <span class="text-glow-accent-1" id="typing-subtitle">
+          delivering impactful AI solutions.
+        </span>
+      </p>
+      <p class="hero-tagline">
+        Smarter Systems. Cleaner Code. Scalable Solutions
+      </p>
+    </div>
+    <nav>
+      <ul class="tabs">
+        <li>
+          <a class="active" data-tab="about" href="#about">About</a>
+        </li>
+        <li>
+          <a data-tab="skills" href="#skills">Skill Set</a>
+        </li>
+        <li>
+          <a data-tab="projects" href="#projects">Projects</a>
+        </li>
+        <li>
+          <a data-tab="contact" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/nicoleleguern/" target="_blank">
+        <i class="fab fa-linkedin-in pulse"></i>
+      </a>
+      <a href="https://github.com/CodeQueenie" target="_blank">
+        <i class="fab fa-github pulse"></i>
+      </a>
+      <a href="mailto:nicoleleguern.pro@gmail.com">
+        <i class="fas fa-envelope pulse"></i>
+      </a>
+    </div>
+  </header>
+  <!-- Main Content: Each section is in its own tab-content -->
+  <main>
+    <!-- About Section -->
+    <div class="tab-content fade-in-element active" id="about">
+      <div class="content-container">
+        <div class="about-section">
+          <div class="about-content">
+            <h3>About Me</h3>
+            <p>
+              I’m a business operations and data specialist with a background in leadership, client success, and system optimization. After managing teams and turning around underperforming operations, I leaned into tech to build smarter, scalable workflows through automation and analytics.
+            </p>
+            <p>
+              My work combines practical experience with tools like Python, SQL, FastAPI, and AI platforms to automate processes, extract insights, and improve efficiency across teams and systems.
+            </p>
+            <ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 1rem;">
+              <li>20+ AI-driven applications across automation, analytics, and web development</li>
+              <li>Experience leading 50+ person teams and streamlining complex operations</li>
+              <li>Skilled in building backend pipelines, internal tools, and data-driven apps</li>
             </ul>
-        </nav>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/nicoleleguern/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/CodeQueenie" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="mailto:nicoleleguern.pro@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <div class="quick-links spaced" style="margin-top: 2rem;">
+              <a class="quick-link button-primary" href="#projects">View Projects</a>
+              <a class="quick-link button-primary" href="mailto:nicoleleguern.pro@gmail.com">Contact Me</a>
+            </div>
+          </div>
         </div>
-    </header>
-
-    <main>
-        <div id="about" class="tab-content active">
-            <div class="hero-section">
-                <div class="hero-parallax-stars"></div>
-                <div class="hero-parallax-glow"></div>
-                <div class="hero-content">
-                    <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Data Analytics | Automation & Process Optimization | Client-Focused Solutions</h2>
-                    <p class="hero-subtitle">Combining technical expertise with business insight to deliver results that matter.</p>
-                </div>
-            </div>
-            
-            <div class="about-section">
-                <div class="about-content">
-                    <h3 style="font-weight: 800; font-size: 1.8rem; margin-bottom: 1.2rem; text-align: left; color: var(--accent-2); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Innovative Problem Solver</h3>
-                    
-                    <p>I blend technical skills and business acumen to build solutions that enhance decision-making and improve operational efficiency. With experience in customer success, data analytics, and process optimization, I focus on creating tools and strategies that empower teams to achieve their objectives.</p>
-                    
-                    <p>From automating workflows to deriving actionable insights from complex datasets, my goal is to help businesses thrive through smarter, more efficient operations.</p>
-                    
-                    <div class="current-focus">
-                        <h4 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 0.8rem; text-align: left; color: var(--accent-2); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Current Focus:</h4>
-                        <p>Eager to apply my expertise in Python, automation, and analytics to help organizations enhance their operations and deliver exceptional client outcomes.</p>
-                    </div>
-                    
-                    <div class="quick-links spaced">
-                        <a href="#projects" class="quick-link" style="margin-right: 20px; background-color: var(--accent-2); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: all 0.3s ease;">
-                            <i class="fas fa-laptop-code"></i> Explore my work
-                        </a>
-                        <a href="mailto:nicoleleguern.pro@gmail.com" class="quick-link" style="background-color: var(--accent-2); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: 600; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: all 0.3s ease;">
-                            <i class="fas fa-envelope"></i> Get in touch
-                        </a>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <!-- Skill Set Section -->
+    <div class="tab-content fade-in-element" id="skills">
+      <div class="content-container">
+        <h2>Skill Set</h2>
+        <div class="skills-grid">
+          <!-- Skill Category: Customer Success & Account Management -->
+          <div class="skill-category">
+            <h3>
+              <i class="fas fa-users"></i>
+              Customer Success &amp; Account Management
+            </h3>
+            <ul>
+              <li>Strategic Client Engagement</li>
+              <li>Customer Lifecycle Management</li>
+              <li>Relationship Building &amp; Retention</li>
+              <li title="Key Performance Indicators: Metrics used to evaluate success">KPI Tracking &amp; Analysis</li>
+              <li title="Net Promoter Score: Measures customer loyalty">NPS &amp; CSAT Management</li>
+              <li title="Customer Satisfaction Score">CSAT</li>
+              <li>Escalation Handling</li>
+            </ul>
+          </div>
+          <!-- Skill Category: CRM Tools & Business Systems -->
+          <div class="skill-category">
+            <h3>
+              <i class="fas fa-database"></i>
+              CRM Tools &amp; Business Systems
+            </h3>
+            <ul>
+              <li>Salesforce (Admin &amp; Lightning)</li>
+              <li title="Salesforce's internal social network">Salesforce Chatter</li>
+              <li title="CRM Administration & Configuration">CRM Administration &amp; Configuration</li>
+              <li title="Automating complex business processes">BPA &amp; Workflow Optimization</li>
+              <li>Systems Integration</li>
+              <li title="Agile SDLC methodologies">SDLC Methodologies (Agile)</li>
+            </ul>
+          </div>
+          <!-- Skill Category: Programming & Analytics -->
+          <div class="skill-category">
+            <h3>
+              <i class="fas fa-laptop-code"></i>
+              Programming &amp; Analytics
+            </h3>
+            <ul>
+              <li>Python, JavaScript, SQL, HTML/CSS</li>
+              <li>RESTful API Development (Flask, Django, FastAPI)</li>
+              <li>Responsive Web Design &amp; UI/UX</li>
+              <li>CI/CD &amp; DevOps Practices</li>
+              <li>Certified Full Stack Developer</li>
+              <li>JupyterLab, Pandas, NumPy</li>
+              <li>Data Analysis &amp; Process Optimization</li>
+              <li>OOP Principles</li>
+              <li>Python Certified (Python Institute)</li>
+            </ul>
+          </div>
+          <!-- Skill Category: Data Visualization, Reporting & Business Intelligence -->
+          <div class="skill-category">
+            <h3>
+              <i class="fas fa-chart-pie"></i>
+              Data Visualization, Reporting &amp; Business Intelligence
+            </h3>
+            <ul>
+              <li>Analytics Dashboards &amp; Custom Dashboards</li>
+              <li>Data Visualization Tools (Plotly, Matplotlib, Seaborn)</li>
+              <li>BI Reporting &amp; Insights</li>
+              <li>Data-Driven Decision Making</li>
+              <li>Performance Analysis &amp; Business Systems</li>
+            </ul>
+          </div>
+          <!-- Skill Category: AI-Powered Automation -->
+          <div class="skill-category">
+            <h3>
+              <i class="fas fa-brain"></i>
+              AI-Powered Automation
+            </h3>
+            <ul>
+              <li>AI for Business Solutions &amp; Analytics</li>
+              <li title="Large Language Models">LLM Integration (OpenAI GPT, LangChain)</li>
+              <li title="Fine-tuning models">Model Fine-Tuning &amp; Evaluation</li>
+              <li>Generative AI application development (e.g., GPT‑4, Claude)</li>
+              <li>Multi-agent systems design with LangChain &amp; agent orchestration tools (Windsurf, Cursor, LangGraph, CrewAI)</li>
+              <li>AI pipelines with vector databases &amp; advanced retrieval techniques</li>
+              <li>Prompt engineering, evaluation frameworks, &amp; automated testing</li>
+            </ul>
+          </div>
+          <!-- Skill Category: Remote Collaboration & Communication -->
+          <div class="skill-category">
+            <h3>
+              <i class="fas fa-comments"></i>
+              Remote Collaboration &amp; Communication
+            </h3>
+            <ul>
+              <li>Client Communication</li>
+              <li>Remote Collaboration Tools (Zoom, GitHub, Microsoft Teams)</li>
+              <li>Strong Written &amp; Verbal Communication</li>
+            </ul>
+          </div>
+          <!-- Skill Category: Business Intelligence & Metrics -->
+          <div class="skill-category">
+            <h3>
+              <i class="fas fa-chart-line"></i>
+              Business Intelligence &amp; Metrics
+            </h3>
+            <ul>
+              <li>Data-Driven Decision Making</li>
+              <li>Performance Analysis &amp; Business Systems</li>
+            </ul>
+          </div>
         </div>
-
-        <div id="skills" class="tab-content">
-            <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Skill Set</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-users"></i> Customer Success & Account Management</h3>
-                    <ul>
-                        <li>Strategic Client Engagement</li>
-                        <li>Customer Lifecycle Management</li>
-                        <li>Retention Strategy</li>
-                        <li>Client Onboarding & Communication</li>
-                        <li>Client-Facing Experience</li>
-                        <li>Executive Communication</li>
-                        <li>Relationship Building</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-database"></i> CRM Tools & Business Systems</h3>
-                    <ul>
-                        <li>Salesforce (Admin & Lightning)</li>
-                        <li>Salesforce Chatter</li>
-                        <li>Mailchimp</li>
-                        <li>Redtail</li>
-                        <li>Google Workspace</li>
-                        <li>CRM Strategy & System Integration</li>
-                        <li>Process Documentation & User Training</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-laptop-code"></i> Programming & Analytics</h3>
-                    <ul>
-                        <li>Python, SQL, JupyterLab, Pandas, NumPy</li>
-                        <li>Data Analysis & Process Optimization</li>
-                        <li>Python Automation & Scripting</li>
-                        <li>Technical Documentation</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-chart-pie"></i> Data Visualization & Reporting</h3>
-                    <ul>
-                        <li>Analytics Dashboards & Custom Dashboards</li>
-                        <li>Data Visualization Tools (Plotly, Matplotlib, Seaborn)</li>
-                        <li>Automated Reporting</li>
-                        <li>Performance & Operational Efficiency Analysis</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-brain"></i> AI-Powered Automation</h3>
-                    <ul>
-                        <li>AI for Business Solutions & Analytics</li>
-                        <li>LLM Integration (OpenAI GPT, LangChain)</li>
-                        <li>Prompt Engineering & Automation Tools</li>
-                        <li>Workflow Automation</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-comments"></i> Remote Collaboration & Communication</h3>
-                    <ul>
-                        <li>Client Communication</li>
-                        <li>Remote Collaboration Tools (Zoom, GitHub, Microsoft Teams)</li>
-                        <li>Strong Written & Verbal Communication</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><i class="fas fa-chart-line"></i> Business Intelligence & Metrics</h3>
-                    <ul>
-                        <li>Data-Driven Decision Making</li>
-                        <li>Performance Analysis & Business Systems</li>
-                    </ul>
-                </div>
+      </div>
+    </div>
+    <!-- Projects Section -->
+    <div class="tab-content fade-in-element" id="projects">
+      <div class="content-container">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+          <!-- Project Card 1: InspireSearch -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="InspireSearch: AI-Powered Visual Search Engine" src="images/inspiresearch_pinterest.jpg"/>
             </div>
-        </div>
-
-        <div id="projects" class="tab-content">
-            <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Projects</h2>
-            
-            <div class="projects-container">
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="InspireSearch: AI-Powered Visual Search Engine">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">InspireSearch: AI-Powered Visual Search Engine</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/InspireSearch---AI_Powered_Visual_Search_Engine" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            InspireSearch is a sophisticated visual search engine that leverages deep learning to find visually similar images. Built with TensorFlow, Faiss, and Flask, this application demonstrates advanced computer vision techniques in a user-friendly web interface. Upload any image to instantly find visually similar content from your dataset.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>TensorFlow</span>
-                            <span>Flask</span>
-                            <span>Computer Vision</span>
-                            <span>Faiss</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Visual Similarity Search</li>
-                                    <li>Deep Learning Integration</li>
-                                    <li>High-Performance Vector Search</li>
-                                    <li>Responsive Web Interface</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Aesthetic Lens: AI-Powered Image Aesthetic Scoring Tool">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Aesthetic Lens: AI-Powered Image Aesthetic Scoring Tool</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Aesthetic-Lens---AI_Powered_Image_Aesthetic_Scoring_Tool" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Aesthetic Lens is an AI-powered web application that evaluates image aesthetics using TensorFlow's NIMA model based on MobileNet architecture. It provides instant scores (1-10) with detailed visual feedback, helping photographers and designers make data-driven decisions about their visual content through an intuitive interface.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>TensorFlow</span>
-                            <span>Flask</span>
-                            <span>Computer Vision</span>
-                            <span>MobileNet</span>
-                            <span>Image Processing</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Modern, Intuitive Web Interface</li>
-                                    <li>AI-Powered Aesthetic Scoring</li>
-                                    <li>Detailed Visual Feedback</li>
-                                    <li>Example Gallery with Reference Images</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="TrendVisor: Dynamic Metrics Dashboard for Trend Prediction">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">TrendVisor: Dynamic Metrics Dashboard for Trend Prediction</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/TrendVisor---Dynamic_Metrics_Dashboard_for_Trend_Prediction" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            TrendVisor is a dynamic metrics dashboard designed for trend prediction using time-series data. Built with Flask, it leverages statsmodels and scikit-learn for advanced forecasting and Plotly for interactive visualizations. Users can upload CSV data, analyze trends, and evaluate forecast accuracy with multiple performance metrics, all within a responsive interface.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>Flask</span>
-                            <span>statsmodels</span>
-                            <span>scikit-learn</span>
-                            <span>Plotly</span>
-                            <span>Time-Series Analysis</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Advanced Time-Series Forecasting</li>
-                                    <li>Interactive Data Visualizations</li>
-                                    <li>Performance Metrics Evaluation</li>
-                                    <li>Category-Based Analysis</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="March Machine Learning Mania 2025">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">March Machine Learning Mania 2025</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/march_mania_2025" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Developed a Python-based predictive model for the 2025 NCAA Basketball Tournament on Kaggle. The project involved building a data pipeline using SQL for data management, employing Random Forests for predictive modeling, and utilizing Streamlit for interactive dashboards. This project improved prediction accuracy by optimizing feature engineering and model parameters.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>SQL</span>
-                            <span>Data Visualization</span>
-                            <span>Machine Learning</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Data processing pipeline</li>
-                                    <li>Feature engineering</li>
-                                    <li>Model training</li>
-                                    <li>Prediction generation</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="LLM-Powered Clinical Test Extraction Pipeline">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">LLM-Powered Clinical Test Extraction Pipeline</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/LLM-Powered_Clinical_Test_Extraction_Pipeline" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Developed an end-to-end pipeline for extracting structured clinical information from de-identified medical notes using state-of-the-art LLMs (OpenAI GPT-4, Anthropic Claude). This project demonstrates advanced NLP capabilities with a production-ready RESTful API built with FastAPI, comprehensive testing strategies, and healthcare domain expertise.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>FastAPI</span>
-                            <span>NLP</span>
-                            <span>LLM Integration</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Flexible data ingestion</li>
-                                    <li>Dynamic prompt engineering</li>
-                                    <li>Comprehensive validation</li>
-                                    <li>Mock LLM testing framework</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Customer Review Sentiment Analysis">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Customer Review Sentiment Analysis</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Customer_Review_Sentiment_Analysis" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Built a system to analyze customer reviews using Natural Language Processing (NLP) techniques. The project leverages Python libraries to preprocess text data, perform sentiment analysis with statistical and machine learning methods, and generate visualizations that highlight overall sentiment trends. This helps businesses better understand customer feedback.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>NLP</span>
-                            <span>Data Visualization</span>
-                            <span>Machine Learning</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Text preprocessing</li>
-                                    <li>Multiple ML models</li>
-                                    <li>Interactive visualizations</li>
-                                    <li>Streamlit web interface</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Financial Assistant">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Financial Assistant</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Financial_Chatbot" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Developed a streamlined financial application featuring three core tools: a stock information lookup that uses reliable demo data for key stocks, a personal finance calculator to track expenses and savings, and a curated financial news browser. The application boasts an intuitive interface and remains fully functional offline when external data sources are unavailable.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>API Integration</span>
-                            <span>Data Analysis</span>
-                            <span>Data Science</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Stock information lookup</li>
-                                    <li>Personal finance calculator</li>
-                                    <li>Financial news browser</li>
-                                    <li>Offline functionality</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1591994843349-f415893b3a6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Cryptocurrency Price Tracker">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Cryptocurrency Price Tracker</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Cryptocurrency_Price_Tracker" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Developed a modular cryptocurrency tracker that fetches real-time data via the CoinGecko API, stores the data in a SQL database (PostgreSQL/MySQL/SQLite), and provides interactive visualizations for key cryptocurrencies. This project involved designing an efficient data pipeline, cleaning and managing data with Python, and building dynamic dashboards to monitor market trends in real time.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>SQL</span>
-                            <span>Data Visualization</span>
-                            <span>API Integration</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Automated data collection</li>
-                                    <li>SQL analytics</li>
-                                    <li>Secure configuration</li>
-                                    <li>Extensible architecture</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="EduPayAudit: HigherEd Payroll System">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">EduPayAudit: HigherEd Payroll System</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/HigherEd_PayrollAudit_System" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Developed a specialized payroll auditing system for higher education institutions. The system automates the verification of faculty and staff payroll data, identifies discrepancies, and ensures compliance with institutional policies and regulations. It includes reporting tools for financial administrators and department heads.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>SQL</span>
-                            <span>Data Analysis</span>
-                            <span>Compliance</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Automated auditing</li>
-                                    <li>Compliance checking</li>
-                                    <li>Custom reporting</li>
-                                    <li>Role-based access</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Weekly Wellness Newsletter Generator">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Weekly Wellness Newsletter Generator</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/Weekly_Wellness_Newsletter_Generator" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Created an automated system that generates personalized wellness newsletters. The application curates content based on user preferences, including healthy recipes, workout routines, meditation practices, and wellness tips. It uses natural language processing to summarize articles and create engaging content.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>NLP</span>
-                            <span>Content Generation</span>
-                            <span>Email Automation</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>Content curation</li>
-                                    <li>Personalization engine</li>
-                                    <li>Responsive templates</li>
-                                    <li>Scheduling system</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="MNIST Digit Classifier">
-                    </div>
-                    <div class="project-header">
-                        <h3 style="font-weight: 700; font-size: 1.4rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">MNIST Digit Classifier</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/CodeQueenie/mnist-digit-classifier" target="_blank" title="View on GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <p class="project-description">
-                            Implemented a neural network for handwritten digit recognition using the MNIST dataset. This project demonstrates the application of convolutional neural networks (CNNs) for image classification tasks. The model achieves over 98% accuracy on the test set and includes a simple web interface for real-time digit recognition from user-drawn input.
-                        </p>
-                        <div class="project-skills">
-                            <span>Python</span>
-                            <span>TensorFlow</span>
-                            <span>Neural Networks</span>
-                            <span>Computer Vision</span>
-                        </div>
-                        <div class="project-details">
-                            <div class="project-features">
-                                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Key Features:</h4>
-                                <ul>
-                                    <li>CNN architecture</li>
-                                    <li>Data augmentation</li>
-                                    <li>Interactive web demo</li>
-                                    <li>Model evaluation metrics</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="view-all-projects">
-                <a href="https://github.com/CodeQueenie" target="_blank" class="view-all-btn" style="font-weight: 700; font-size: 1.1rem; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    View All Projects <i class="fas fa-arrow-right"></i>
+            <div class="project-header">
+              <h3>InspireSearch: AI-Powered Visual Search Engine</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/InspireSearch---AI_Powered_Visual_Search_Engine" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
                 </a>
+              </div>
             </div>
-        </div>
-
-        <div id="contact" class="tab-content">
-            <h2 style="font-weight: 800; font-size: 2.2rem; margin-bottom: 1.5rem; text-align: left; color: var(--text-primary); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Get in Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3 style="font-weight: 700; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Email</h3>
-                        <p><a href="mailto:nicoleleguern.pro@gmail.com">nicoleleguern.pro@gmail.com</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-linkedin"></i>
-                        <h3 style="font-weight: 700; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">LinkedIn</h3>
-                        <p><a href="https://www.linkedin.com/in/nicoleleguern/" target="_blank">linkedin.com/in/nicoleleguern</a></p>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
-                        <h3 style="font-weight: 700; font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">GitHub</h3>
-                        <p><a href="https://github.com/CodeQueenie" target="_blank">github.com/CodeQueenie</a></p>
-                    </div>
+            <div class="project-content">
+              <p class="project-description">
+                A sophisticated visual search engine leveraging deep learning to find visually similar images. Built with TensorFlow, Faiss, and Flask, it offers advanced computer vision techniques in an intuitive web interface.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>TensorFlow</span>
+                <span>Flask</span>
+                <span>Computer Vision</span>
+                <span>Faiss</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Visual Similarity Search</li>
+                    <li>Deep Learning Integration</li>
+                    <li>High-Performance Vector Search</li>
+                    <li>Responsive Web Interface</li>
+                  </ul>
                 </div>
-                
-                <div class="contact-form-container">
-                    <h3 style="font-weight: 700; font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Send Me a Message</h3>
-                    <form action="thank-you.html" method="GET" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
+              </div>
             </div>
+          </div>
+          <!-- Project Card 2: Aesthetic Lens -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="Aesthetic Lens: AI-Powered Image Aesthetic Scoring Tool" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>Aesthetic Lens: AI-Powered Image Aesthetic Scoring Tool</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/Aesthetic-Lens---AI_Powered_Image_Aesthetic_Scoring_Tool" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                An AI-powered web app that evaluates image aesthetics using TensorFlow's NIMA model based on MobileNet. It provides instant scores with detailed visual feedback for designers and photographers.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>TensorFlow</span>
+                <span>Flask</span>
+                <span>Computer Vision</span>
+                <span>MobileNet</span>
+                <span>Image Processing</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Modern, Intuitive Interface</li>
+                    <li>AI-Powered Scoring</li>
+                    <li>Detailed Visual Feedback</li>
+                    <li>Example Gallery</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 3: TrendVisor -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="TrendVisor: Dynamic Metrics Dashboard for Trend Prediction" src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>TrendVisor: Dynamic Metrics Dashboard for Trend Prediction</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/TrendVisor---Dynamic_Metrics_Dashboard_for_Trend_Prediction" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                A dynamic dashboard for trend prediction using time-series data. Built with Flask, statsmodels, scikit-learn, and Plotly, it enables CSV data uploads, interactive visualizations, and performance metric evaluations.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>Flask</span>
+                <span>statsmodels</span>
+                <span>scikit-learn</span>
+                <span>Plotly</span>
+                <span>Time-Series Analysis</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Advanced Forecasting</li>
+                    <li>Interactive Visualizations</li>
+                    <li>Performance Evaluation</li>
+                    <li>Category-Based Analysis</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 4: March Machine Learning Mania 2025 -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="March Machine Learning Mania 2025" src="https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>March Machine Learning Mania 2025</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/march_mania_2025" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                A predictive model for the 2025 NCAA Basketball Tournament using Python, SQL, Random Forests, and Streamlit to build an end-to-end data pipeline that improved prediction accuracy.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>SQL</span>
+                <span>Machine Learning</span>
+                <span>Data Visualization</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Data Processing Pipeline</li>
+                    <li>Feature Engineering</li>
+                    <li>Model Training</li>
+                    <li>Prediction Generation</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 5: LLM-Powered Clinical Test Extraction Pipeline -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="LLM-Powered Clinical Test Extraction Pipeline" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>LLM-Powered Clinical Test Extraction Pipeline</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/LLM-Powered_Clinical_Test_Extraction_Pipeline" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                An end-to-end pipeline that extracts structured clinical information from de-identified medical notes using advanced LLMs (OpenAI GPT-4, Anthropic Claude), a FastAPI RESTful API, and robust testing strategies.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>NLP</span>
+                <span>LLM Integration</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Flexible Data Ingestion</li>
+                    <li>Dynamic Prompt Engineering</li>
+                    <li>Comprehensive Validation</li>
+                    <li>Testing Frameworks</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 6: Customer Review Sentiment Analysis -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="Customer Review Sentiment Analysis" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>Customer Review Sentiment Analysis</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/Customer_Review_Sentiment_Analysis" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                A system that leverages NLP techniques to analyze customer reviews, performing sentiment analysis and visualizing overall trends to help businesses understand client feedback.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>NLP</span>
+                <span>Data Visualization</span>
+                <span>Machine Learning</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Text Preprocessing</li>
+                    <li>Multiple ML Models</li>
+                    <li>Interactive Visualizations</li>
+                    <li>Streamlit Interface</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 7: SaaS Integration Data Pipeline for Behavior Analytics -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="SaaS Integration Data Pipeline for Behavior Analytics" src="images/SaaS_pipeline.jpg" />
+            </div>
+            <div class="project-header">
+              <h3>SaaS Integration Data Pipeline for Behavior Analytics</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/SaaS_Integration_Data_Pipeline_for_Behavior_Analytics" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                A robust data pipeline that integrates multiple SaaS APIs (NASA, Dad Jokes, Random User), processes data, and generates synthetic behavioral events for analytics. Built with FastAPI and SQLite, it demonstrates clean architecture, factory pattern implementation, and error handling—ideal for behavioral analytics applications.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>SQLite</span>
+                <span>API Integration</span>
+                <span>Data Pipeline</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Integrates Multiple SaaS APIs</li>
+                    <li>Automated Data Processing</li>
+                    <li>Synthetic Behavioral Event Generation</li>
+                    <li>Clean Architecture &amp; Error Handling</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 8: MNIST Digit Classifier -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="MNIST Digit Classifier" src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>MNIST Digit Classifier</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/mnist-digit-classifier" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                A neural network for handwritten digit recognition using the MNIST dataset. It demonstrates the use of convolutional neural networks (CNNs) with over 98% accuracy and a simple web interface for real-time predictions.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>TensorFlow</span>
+                <span>Neural Networks</span>
+                <span>Computer Vision</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>CNN Architecture</li>
+                    <li>Data Augmentation</li>
+                    <li>Interactive Demo</li>
+                    <li>Evaluation Metrics</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 9: Weekly Wellness Newsletter Generator -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="Weekly Wellness Newsletter Generator" src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>Weekly Wellness Newsletter Generator</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/Weekly_Wellness_Newsletter_Generator" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                An automated system that generates personalized wellness newsletters by curating content on healthy recipes, workout routines, meditation practices, and wellness tips—powered by NLP to create engaging summaries.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>NLP</span>
+                <span>Content Generation</span>
+                <span>Email Automation</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Content Curation</li>
+                    <li>Personalization Engine</li>
+                    <li>Responsive Templates</li>
+                    <li>Scheduling System</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Project Card 10: Cryptocurrency Price Tracker -->
+          <div class="project-card">
+            <div class="project-thumbnail">
+              <img alt="Cryptocurrency Price Tracker" src="https://images.unsplash.com/photo-1591994843349-f415893b3a6b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+            </div>
+            <div class="project-header">
+              <h3>Cryptocurrency Price Tracker</h3>
+              <div class="project-links">
+                <a href="https://github.com/CodeQueenie/Cryptocurrency_Price_Tracker" target="_blank" title="View on GitHub">
+                  <i class="fab fa-github pulse"></i>
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <p class="project-description">
+                Developed a modular cryptocurrency tracker that fetches real-time data via the CoinGecko API, stores the data in a SQL database, and provides interactive visualizations. This project involves designing an efficient data pipeline, cleaning and managing data with Python, and building dynamic dashboards to monitor market trends.
+              </p>
+              <div class="project-skills">
+                <span>Python</span>
+                <span>SQL</span>
+                <span>Data Visualization</span>
+                <span>API Integration</span>
+              </div>
+              <div class="project-details">
+                <div class="project-features">
+                  <h4>Key Features:</h4>
+                  <ul>
+                    <li>Automated Data Collection</li>
+                    <li>SQL Analytics</li>
+                    <li>Secure Configuration</li>
+                    <li>Extensible Architecture</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Nicole LeGuern. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Tab navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs
-                    tabs.forEach(t => t.classList.remove('active'));
-                    // Add active class to clicked tab
-                    tab.classList.add('active');
-                    
-                    // Hide all tab contents
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Show the corresponding tab content
-                    const tabId = tab.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-            
-            // Set the first tab as active by default
-            tabs[0].click();
-            
-            // Handle contact form submission
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-            
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Show loading spinner
-                    const submitBtn = this.querySelector('.submit-btn');
-                    const btnText = submitBtn.querySelector('.btn-text');
-                    const spinner = submitBtn.querySelector('.spinner');
-                    
-                    btnText.style.display = 'none';
-                    spinner.style.display = 'inline-block';
-                    submitBtn.disabled = true;
-                    
-                    // Collect form data
-                    const formData = new FormData(this);
-                    const data = {};
-                    formData.forEach((value, key) => {
-                        data[key] = value;
-                    });
-                    
-                    // Send form data using fetch
-                    fetch('https://formsubmit.co/ajax/nicoleleguern.pro@gmail.com', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Redirect to thank you page
-                            window.location.href = 'thank-you.html';
-                        } else {
-                            formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
-                            formStatus.style.display = 'block';
-                            
-                            // Reset button
-                            btnText.style.display = 'inline-block';
-                            spinner.style.display = 'none';
-                            submitBtn.disabled = false;
-                        }
-                    })
-                    .catch(error => {
-                        formStatus.innerHTML = '<div class="error-message">Something went wrong. Please try again later.</div>';
-                        formStatus.style.display = 'block';
-                        
-                        // Reset button
-                        btnText.style.display = 'inline-block';
-                        spinner.style.display = 'none';
-                        submitBtn.disabled = false;
-                    });
-                });
-            }
-        });
-    </script>
-    <script src="js/script.js"></script>
-    <script src="js/chatbot.js"></script>
+        <div class="view-all-projects">
+          <a class="button-primary" href="https://github.com/CodeQueenie" target="_blank">
+            View All Projects on GitHub
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Contact Section -->
+    <div class="tab-content fade-in-element" id="contact">
+      <div class="content-container">
+        <h2>Get in Touch</h2>
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <h3>Email</h3>
+              <p>
+                <a href="mailto:nicoleleguern.pro@gmail.com">nicoleleguern.pro@gmail.com</a>
+              </p>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-linkedin"></i>
+              <h3>LinkedIn</h3>
+              <p>
+                <a href="https://www.linkedin.com/in/nicoleleguern/" target="_blank">linkedin.com/in/nicoleleguern</a>
+              </p>
+            </div>
+            <div class="contact-item">
+              <i class="fab fa-github"></i>
+              <h3>GitHub</h3>
+              <p>
+                <a href="https://github.com/CodeQueenie" target="_blank">github.com/CodeQueenie</a>
+              </p>
+            </div>
+          </div>
+          <div class="contact-form-container">
+            <h3>Send Me a Message</h3>
+            <form action="thank-you.html" class="contact-form" method="GET">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" name="name" required type="text"/>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" required type="email"/>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input id="subject" name="subject" required type="text"/>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required rows="5"></textarea>
+              </div>
+              <button class="button-primary" type="submit">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>© 2025 Nicole LeGuern. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/nicoleleguern/" target="_blank">
+        <i class="fab fa-linkedin-in pulse"></i>
+      </a>
+      <a href="https://github.com/CodeQueenie" target="_blank">
+        <i class="fab fa-github pulse"></i>
+      </a>
+      <a href="mailto:nicoleleguern.pro@gmail.com">
+        <i class="fas fa-envelope pulse"></i>
+      </a>
+    </div>
+  </footer>
+  <script defer src="script.js"></script>
 </body>
 </html>
