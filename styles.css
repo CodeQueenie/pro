@@ -1,132 +1,625 @@
-
 /* =============== GLOBAL COLORS =============== */
 :root {
-    --primary-bg: #111118;
-    --secondary-bg: #1a1a22;
-    --card-bg: #20202a;
-    --text-primary: #f0f0f0;
-    --text-secondary: #cccccc;
-    --accent-1: #00f5ff;
-    --accent-2: #8c52ff;
-    --highlight: #00f5ff;
-    --shadow-color: rgba(0, 245, 255, 0.1);
-    --border-color: #333340;
-    --link-color: #8c52ff;
-    --link-hover: #00f5ff;
+    /* New AI-focused Palette */
+    --primary-bg: #111118; /* Dark background */
+    --secondary-bg: #1a1a22; /* Slightly lighter dark */
+    --card-bg: #20202a; /* Card background */
+    --text-primary: #f0f0f0; /* Main text */
+    --text-secondary: #cccccc; /* Secondary text */
+    --accent-1: #00f5ff; /* Electric Cyan */
+    --accent-2: #8c52ff; /* Soft Violet */
+    --highlight: #00f5ff; /* Using Cyan as highlight for now */
+    --shadow-color: rgba(0, 245, 255, 0.1); /* Cyan glow shadow */
+    --border-color: #333340; /* Dark border */
+    --link-color: #8c52ff; /* Violet for links */
+    --link-hover: #00f5ff; /* Cyan for link hover */
+
+    /* Glow Effects */
     --glow-accent-1: 0 0 15px rgba(0, 245, 255, 0.7);
+    --glow-accent-2: 0 0 15px rgba(140, 82, 255, 0.7);
     --text-glow-accent-1: 0 0 8px rgba(0, 245, 255, 0.8);
-  }
-  
-  /* =============== BASE STYLES =============== */
-  body {
+    --text-glow-accent-2: 0 0 8px rgba(140, 82, 255, 0.8);
+}
+
+/* =============== BASE STYLES =============== */
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Body font */
+    font-size: 1.6rem;
+    background: var(--primary-bg);
+    color: var(--text-primary);
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 1.6rem;
-    color: var(--text-primary);
-    background: linear-gradient(135deg, #111118, #0b0e11);
+    line-height: 1.6;
     overflow-x: hidden;
-  }
-  
-  h1, h2, h3 {
-    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, rgba(17, 17, 24, 0.95), rgba(11, 14, 17, 0.98)),
+                var(--primary-bg); /* Subtle gradient overlay */
+}
+
+/* =============== TYPOGRAPHY =============== */
+h1, h2, h3, h4, h5 {
+    font-family: 'Orbitron', 'Sora', 'Space Grotesk', sans-serif; /* Header font */
+    font-weight: 700;
     color: var(--text-primary);
+    margin: 0 0 1rem;
+    text-shadow: var(--text-glow-accent-1); /* Subtle glow on headers */
+}
+
+h1 { font-size: 4rem; letter-spacing: 0.05em; }
+h2 { font-size: 2.8rem; }
+h3 { font-size: 2.2rem; }
+
+p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: var(--link-hover);
     text-shadow: var(--text-glow-accent-1);
-  }
-  
-  .hero-section {
+}
+
+strong {
+    color: var(--accent-1);
+    font-weight: 600;
+}
+
+/* General Glow Effect Class */
+.glow-effect {
+    transition: all 0.3s ease;
+}
+.glow-effect:hover {
+    box-shadow: var(--glow-accent-1);
+    transform: translateY(-3px);
+}
+.text-glow-hover:hover {
+    text-shadow: var(--text-glow-accent-1);
+}
+
+/* =============== HERO SECTION =============== */
+.hero-section {
+    min-height: 60vh; /* Adjust height as needed */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5rem 2rem;
     text-align: center;
-    background: linear-gradient(180deg, rgba(17, 17, 24, 0.1), rgba(11, 14, 17, 0.9));
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .hero-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(0, 245, 255, 0.05), rgba(140, 82, 255, 0.05));
-    background-size: 300% 300%;
-    animation: subtle-gradient-animation 20s ease infinite;
-    z-index: 0;
-    opacity: 0.7;
-  }
-  
-  @keyframes subtle-gradient-animation {
+    padding: 4rem 2rem;
+    background: linear-gradient(180deg, rgba(17, 17, 24, 0.1) 0%, rgba(11, 14, 17, 0.8) 100%), var(--primary-bg);
+    position: relative; /* For potential pseudo-elements or effects */
+    overflow: hidden; /* If adding background animations */
+}
+
+/* Subtle Animated Background */
+@keyframes subtle-gradient-animation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-  }
-  
-  .header-content {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .subtitle {
-    font-size: 2rem;
-    color: var(--text-secondary);
-  }
-  
-  .text-glow-accent-1 {
-    color: var(--accent-1);
-    text-shadow: var(--text-glow-accent-1);
-  }
-  
-  .hero-tagline {
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.05), rgba(140, 82, 255, 0.05), rgba(0, 245, 255, 0.05));
+    background-size: 300% 300%; /* Make gradient larger to allow smooth movement */
+    animation: subtle-gradient-animation 20s ease infinite; /* Slow, smooth animation */
+    z-index: 0; /* Behind the content */
+    opacity: 0.7; /* Keep it subtle */
+}
+
+.hero-section .header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* Spacing between elements */
+    margin-bottom: 2rem; /* Space before navigation */
+    z-index: 2; /* Ensure content is above background effects */
+}
+
+.hero-tagline {
     font-size: 1.8rem;
     font-weight: 600;
-    margin-top: 1rem;
-  }
-  
-  nav .tabs {
+    color: var(--text-primary);
+    margin-top: 0.5rem;
+  }  
+
+.headshot {
+    width: 150px; /* Adjust size as needed */
+    height: 150px; /* Make height equal to width for circle */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border: 3px solid var(--accent-1); /* Optional: Add a border */
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.4); /* Optional: Add glow */
+}
+
+.hero-section h1 {
+    font-family: 'Orbitron', 'Sora', sans-serif; /* Header font */
+    font-size: clamp(3rem, 6vw, 5rem); /* Responsive font size */
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: var(--text-glow-accent-1); /* Subtle text glow */
+}
+
+.hero-section .subtitle {
+    font-family: 'Inter', sans-serif; /* Body font */
+    font-size: clamp(1.6rem, 3vw, 2rem); /* Responsive font size */
+    color: var(--text-secondary);
+    max-width: 600px;
+    font-weight: 400;
+    margin-top: 0.5rem;
+}
+
+.hero-section .subtitle .text-glow-accent-1 {
+    color: var(--accent-1); /* Make the glowing part stand out */
+    text-shadow: var(--text-glow-accent-1);
+}
+
+/* Navigation Styles (if not already defined elsewhere) */
+nav {
+    width: 100%;
     display: flex;
-    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem; /* Adjust as needed */
+    z-index: 2;
+}
+
+.tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 2rem; /* Space between tabs */
+    background: rgba(26, 26, 34, 0.8); /* Semi-transparent background */
     padding: 1rem 2rem;
     border-radius: 8px;
-    background: rgba(26, 26, 34, 0.8);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    margin-top: 2rem;
-  }
-  
-  nav .tabs li {
-    list-style: none;
-  }
-  
-  nav .tabs a {
-    font-weight: 500;
+}
+
+.tabs li a {
+    text-decoration: none;
     color: var(--text-secondary);
+    font-size: 1.6rem;
+    font-weight: 500;
     padding: 0.8rem 1.5rem;
     border-radius: 5px;
-    transition: 0.3s;
-  }
-  
-  nav .tabs a:hover,
-  nav .tabs a.active {
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tabs li a:hover,
+.tabs li a.active {
     color: var(--accent-1);
-    background: rgba(0, 245, 255, 0.1);
-    box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
-  }
-  
-  .social-links {
+    background-color: rgba(0, 245, 255, 0.1); /* Light cyan background */
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.3), 0 0 5px rgba(140, 82, 255, 0.2); /* Cyan glow on hover/active */
+}
+
+/* =============== MAIN CONTENT & TABS =============== */
+main {
+    padding: 4rem 2rem;
+    max-width: 1200px; /* Limit content width */
+    margin: 0 auto; /* Center content */
+}
+
+.content-container {
+    padding: 2rem 4rem; /* Add horizontal padding to all content containers */
+    max-width: 1100px; /* Slightly reduce from main's max-width */
+    margin: 0 auto; /* Center the container */
+}
+
+.tab-content {
+    display: none; /* Hide all tab content by default */
+    padding: 2rem 0; /* Add some padding */
+    animation: fadeIn 0.5s ease-in-out; /* Add fade-in animation */
+}
+
+.tab-content.active {
+    display: block; /* Show only the active tab content */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =============== ABOUT SECTION =============== */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.about-content p,
+.about-content ul {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+}
+
+/* Reduce spacing within the initial hero section shown in the 'About' tab */
+#about > .hero-section {
+    padding-top: 1.5rem;    /* Re-introduce some padding */
+    padding-bottom: 1.5rem; /* Re-introduce some padding */
+    min-height: auto;    /* Keep min-height override */
+}
+#about > .hero-section > .hero-content > p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+    line-height: 1.6;
+}
+
+#about > .hero-section > .hero-content > p.hero-subtitle {
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+/* =============== BUTTONS =============== */
+.button-primary, a.button-primary, button.button-primary {
+    display: inline-block;
+    position: relative; /* Needed for absolute positioning of pseudo-elements */
+    overflow: hidden; /* Keep shimmer contained */
+    padding: 20px 25px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    color: var(--primary-bg); /* Dark text on gradient */
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 245, 255, 0.3), 0 0 5px rgba(140, 82, 255, 0.2); /* Initial subtle glow */
+    margin: 0 8px;
+    z-index: 1; /* Ensure button content is above pseudo-elements */
+}
+
+/* Shimmer Effect */
+.button-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%; /* Start off-screen */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: left 0.6s ease;
+    z-index: -1; /* Place behind button text */
+}
+
+.button-primary:hover::before {
+    left: 100%; /* Move across the button */
+}
+
+/* Enhanced Hover Glow */
+.button-primary:hover, a.button-primary:hover, button.button-primary:hover {
+    transform: translateY(-3px) scale(1.02); /* Slightly lift and scale */
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.6), /* Brighter cyan glow */
+                0 0 15px rgba(140, 82, 255, 0.4), /* Brighter violet glow */
+                0 4px 10px rgba(0,0,0, 0.2); /* Softer shadow */
+}
+
+.quick-links.spaced {
     margin-top: 2rem;
+    text-align: center; /* Center buttons if desired */
+}
+
+/* =============== GRID SECTIONS =============== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.projects-grid {
+    display: grid;
+    /* Further constrain min and max column width */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 320px)); 
+    gap: 3rem; /* Increased gap from 1.5rem to 3rem */
+    margin-top: 2rem;
+    justify-content: center; /* Center grid items if they don't fill the row */
+}
+
+/* Project Cards: Ensure no blur effect on hover and bullet points are fully visible */
+.project-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: visible;
+    margin-bottom: 2rem; /* Added margin to bottom of each card */
+  }
+  
+  .project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    filter: none;
+  }
+  
+  /* Skill Categories: Pop-out and light-up on hover */
+  .skill-category {
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.skill-category h3 {
+    margin-bottom: 1rem;
     display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-category ul {
+    list-style-position: inside; /* Keep bullets inside the container */
+    padding-left: 0.5rem;
+    margin: 0;
+}
+
+.skill-category li {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+  
+.skill-category:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+  
+.project-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+/* =============== CONTACT + FORMS =============== */
+.contact-form input,
+.contact-form textarea {
+    background: var(--secondary-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.contact-form button.button-primary {
+    padding: 20px 25px; /* Match other button-primary padding */
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    color: var(--primary-bg);
+    border-radius: 5px; /* Match other buttons */
+    font-size: 1.6rem;
+    font-weight: 600;
+    width: auto; /* Prevent full width */
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.contact-form button.button-primary:hover {
+    transform: translateY(-3px) scale(1.02); /* Match other button hover effects */
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.6),
+                0 0 15px rgba(140, 82, 255, 0.4),
+                0 4px 10px rgba(0,0,0, 0.2);
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+}
+
+/* =============== ANIMATIONS =============== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* =============== FOOTER =============== */
+footer {
+    background: var(--secondary-bg);
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-color);
+}
+
+footer p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
     gap: 2rem;
-  }
-  
-  .social-links a {
+    margin: 1.5rem 0;
+}
+
+.footer-social a {
     color: var(--accent-1);
+    font-size: 2.8rem; /* Larger social icons */
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: var(--accent-2);
+    transform: translateY(-5px);
+    text-shadow: var(--text-glow-accent-1);
+}
+
+/* =============== UTILITIES & ANIMATIONS =============== */
+
+/* --- TEMPORARILY DISABLED Fade-in animation --- */
+/*
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-element.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+*/
+
+/* Style resets and base styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* =============== MOBILE =============== */
+@media (max-width: 768px) {
+    .hero-content p:first-child {
+        font-size: 1.6rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .about-content {
+        padding: 1rem;
+    }
+}
+section, .tab-content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.project-card, .skill-category, .contact-item {
+    margin-bottom: 24px;
+}
+
+.quick-links {
+    gap: 16px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contact-form-container, .contact-info {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.hero-content {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+
+    padding: 3rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* HERO CONTENT FIX */
+
+.hero-content {
+    padding: 2rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+.hero-content p {
+    font-size: 2.4rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.hero-content .hero-subtitle {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin: 0;
+}
+
+/* =============== ENHANCED ABOUT SECTION =============== */
+.hero-content.enhanced {
+    background: linear-gradient(135deg, rgba(246,211,101,0.2), rgba(253,160,133,0.2));
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .hero-content.enhanced .icon {
+    margin-right: 0.5rem;
+    color: #fda085;
+  }
+  
+  .hero-content.enhanced .dynamic-text {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  
+  /* =============== ABOUT HIGHLIGHT BOX =============== */
+.about-highlight {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.07), rgba(140, 82, 255, 0.07));
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    margin: 2rem auto;
+    max-width: 800px;
+    font-size: 1.6rem;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+  
+  /* =============== HEADER TAGLINE =============== */
+.header-tagline {
     font-size: 2.2rem;
-    transition: 0.3s;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 1rem;
+    text-align: center;
   }
-  
-  .social-links a:hover {
-    color: var(--link-hover);
-    transform: scale(1.2);
-  }
-  
